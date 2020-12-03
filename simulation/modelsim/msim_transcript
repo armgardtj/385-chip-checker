@@ -1,0 +1,106 @@
+# Reading D:/intelFPGA_lite/18.0/modelsim_ase/tcl/vsim/pref.tcl
+# do chip_checker_run_msim_rtl_verilog.do
+# if {[file exists rtl_work]} {
+# 	vdel -lib rtl_work -all
+# }
+# vlib rtl_work
+# vmap work rtl_work
+# Model Technology ModelSim - Intel FPGA Edition vmap 10.5b Lib Mapping Utility 2016.10 Oct  5 2016
+# vmap work rtl_work 
+# Copying D:/intelFPGA_lite/18.0/modelsim_ase/win32aloem/../modelsim.ini to modelsim.ini
+# Modifying modelsim.ini
+# 
+# vlog -sv -work work +incdir+D:/Classes/ECE385/chip_checker {D:/Classes/ECE385/chip_checker/HexDriver.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 15:44:40 on Dec 03,2020
+# vlog -reportprogress 300 -sv -work work "+incdir+D:/Classes/ECE385/chip_checker" D:/Classes/ECE385/chip_checker/HexDriver.sv 
+# -- Compiling module HexDriver
+# 
+# Top level modules:
+# 	HexDriver
+# End time: 15:44:40 on Dec 03,2020, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -work work +incdir+D:/Classes/ECE385/chip_checker {D:/Classes/ECE385/chip_checker/chip_checker.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 15:44:40 on Dec 03,2020
+# vlog -reportprogress 300 -sv -work work "+incdir+D:/Classes/ECE385/chip_checker" D:/Classes/ECE385/chip_checker/chip_checker.sv 
+# -- Compiling module chip_checker
+# 
+# Top level modules:
+# 	chip_checker
+# End time: 15:44:40 on Dec 03,2020, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -work work +incdir+D:/Classes/ECE385/chip_checker {D:/Classes/ECE385/chip_checker/chip_checker_state.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 15:44:41 on Dec 03,2020
+# vlog -reportprogress 300 -sv -work work "+incdir+D:/Classes/ECE385/chip_checker" D:/Classes/ECE385/chip_checker/chip_checker_state.sv 
+# -- Compiling module chip_checker_state
+# 
+# Top level modules:
+# 	chip_checker_state
+# End time: 15:44:41 on Dec 03,2020, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -sv -work work +incdir+D:/Classes/ECE385/chip_checker {D:/Classes/ECE385/chip_checker/chip_7402.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 15:44:41 on Dec 03,2020
+# vlog -reportprogress 300 -sv -work work "+incdir+D:/Classes/ECE385/chip_checker" D:/Classes/ECE385/chip_checker/chip_7402.sv 
+# -- Compiling module chip_7402
+# 
+# Top level modules:
+# 	chip_7402
+# End time: 15:44:41 on Dec 03,2020, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 
+# vlog -sv -work work +incdir+D:/Classes/ECE385/chip_checker {D:/Classes/ECE385/chip_checker/testbench.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 15:44:41 on Dec 03,2020
+# vlog -reportprogress 300 -sv -work work "+incdir+D:/Classes/ECE385/chip_checker" D:/Classes/ECE385/chip_checker/testbench.sv 
+# -- Compiling module testbench
+# 
+# Top level modules:
+# 	testbench
+# End time: 15:44:41 on Dec 03,2020, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 
+# vsim -t 1ps -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L fiftyfivenm_ver -L rtl_work -L work -voptargs="+acc"  testbench
+# vsim -t 1ps -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L fiftyfivenm_ver -L rtl_work -L work -voptargs=""+acc"" testbench 
+# Start time: 15:44:41 on Dec 03,2020
+# Loading sv_std.std
+# Loading work.testbench
+# Loading work.chip_checker
+# Loading work.HexDriver
+# Loading work.chip_checker_state
+# Loading work.chip_7402
+# 
+# add wave *
+# view structure
+# .main_pane.structure.interior.cs.body.struct
+# view signals
+# .main_pane.objects.interior.cs.body.tree
+# run 1000 ns
+# ** Warning: (vsim-8315) D:/Classes/ECE385/chip_checker/chip_7402.sv(56): No condition is true in the unique/priority if/case statement.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench/chip_checker0/chip_7402_0
+# ** Warning: (vsim-8315) D:/Classes/ECE385/chip_checker/chip_7402.sv(77): No condition is true in the unique/priority if/case statement.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench/chip_checker0/chip_7402_0
+# ** Warning: (vsim-8315) D:/Classes/ECE385/chip_checker/chip_checker_state.sv(38): No condition is true in the unique/priority if/case statement.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench/chip_checker0/chip_checker_state0
+# ** Warning: (vsim-8315) D:/Classes/ECE385/chip_checker/chip_checker_state.sv(83): No condition is true in the unique/priority if/case statement.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench/chip_checker0/chip_checker_state0
+# ** Warning: (vsim-8315) D:/Classes/ECE385/chip_checker/chip_7402.sv(56): No condition is true in the unique/priority if/case statement.
+#    Time: 0 ps  Iteration: 1  Instance: /testbench/chip_checker0/chip_7402_0
+# ** Warning: (vsim-8315) D:/Classes/ECE385/chip_checker/chip_7402.sv(77): No condition is true in the unique/priority if/case statement.
+#    Time: 0 ps  Iteration: 1  Instance: /testbench/chip_checker0/chip_7402_0
+# ** Warning: (vsim-8315) D:/Classes/ECE385/chip_checker/chip_checker_state.sv(38): No condition is true in the unique/priority if/case statement.
+#    Time: 0 ps  Iteration: 2  Instance: /testbench/chip_checker0/chip_checker_state0
+# ** Warning: (vsim-8315) D:/Classes/ECE385/chip_checker/chip_checker_state.sv(83): No condition is true in the unique/priority if/case statement.
+#    Time: 0 ps  Iteration: 2  Instance: /testbench/chip_checker0/chip_checker_state0
+# ** Warning: (vsim-8315) D:/Classes/ECE385/chip_checker/chip_checker_state.sv(38): No condition is true in the unique/priority if/case statement.
+#    Time: 10 ns  Iteration: 2  Instance: /testbench/chip_checker0/chip_checker_state0
+# ** Warning: (vsim-8315) D:/Classes/ECE385/chip_checker/chip_checker_state.sv(83): No condition is true in the unique/priority if/case statement.
+#    Time: 10 ns  Iteration: 2  Instance: /testbench/chip_checker0/chip_checker_state0
+# ** Warning: (vsim-8315) D:/Classes/ECE385/chip_checker/chip_7402.sv(56): No condition is true in the unique/priority if/case statement.
+#    Time: 30 ns  Iteration: 2  Instance: /testbench/chip_checker0/chip_7402_0
+# ** Warning: (vsim-8315) D:/Classes/ECE385/chip_checker/chip_7402.sv(77): No condition is true in the unique/priority if/case statement.
+#    Time: 30 ns  Iteration: 2  Instance: /testbench/chip_checker0/chip_7402_0
+# End time: 15:48:42 on Dec 03,2020, Elapsed time: 0:04:01
+# Errors: 0, Warnings: 12

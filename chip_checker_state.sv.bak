@@ -1,0 +1,52 @@
+module chip_checker_state( input logic Clk, 
+									input logic Reset,
+									input logic Run,
+									input logic Chosen,
+									output logic LD_SW,
+									output logic LD_RSLT)
+
+enum logic [5:0] { Halted, 
+						Choose, 
+						DispResult}   State, Next_state;   // Internal state logic
+						
+always_ff @ (posedge Clk)
+begin
+	if (Reset) 
+		State <= Halted;
+	else 
+		State <= Next_state;
+end
+
+always_comb
+	begin 
+		// Default next state is staying at current state
+		Next_state = State;
+		LD_SW = 0;
+		LD_RSLT = 0;
+
+		// Assign next state
+		unique case (State)
+			Halted : 
+				if (Run) 
+					Next_state = Choose;                      
+			Choose : 
+				begin
+				
+					if(Chosen)
+						Next_state = DispResult;
+					else
+						Next_state = Choose;
+					
+				end
+			// Any states involving SRAM require more than one clock cycles.
+			// The exact number will be discussed in lecture.
+			DispResult : 
+				begin
+				
+					if(Run)
+						Next_state = Choose;
+					else
+						Next_state = DispResult;
+					
+				end
+endmodule

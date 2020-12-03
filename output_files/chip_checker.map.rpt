@@ -1,0 +1,617 @@
+Analysis & Synthesis report for chip_checker
+Thu Dec 03 15:44:16 2020
+Quartus Prime Version 18.0.0 Build 614 04/24/2018 SJ Lite Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Analysis & Synthesis Summary
+  3. Analysis & Synthesis Settings
+  4. Parallel Compilation
+  5. Analysis & Synthesis Source Files Read
+  6. Analysis & Synthesis Resource Usage Summary
+  7. Analysis & Synthesis Resource Utilization by Entity
+  8. State Machine - |chip_checker|chip_7402:chip_7402_0|State
+  9. State Machine - |chip_checker|chip_checker_state:chip_checker_state0|State
+ 10. User-Specified and Inferred Latches
+ 11. Registers Removed During Synthesis
+ 12. General Register Statistics
+ 13. Multiplexer Restructuring Statistics (Restructuring Performed)
+ 14. Port Connectivity Checks: "chip_7402:chip_7402_0"
+ 15. Port Connectivity Checks: "HexDriver:CHex3"
+ 16. Port Connectivity Checks: "HexDriver:CHex2"
+ 17. Port Connectivity Checks: "HexDriver:BHex1"
+ 18. Port Connectivity Checks: "HexDriver:BHex0"
+ 19. Post-Synthesis Netlist Statistics for Top Partition
+ 20. Elapsed Time Per Partition
+ 21. Analysis & Synthesis Messages
+ 22. Analysis & Synthesis Suppressed Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 2018  Intel Corporation. All rights reserved.
+Your use of Intel Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Intel Program License 
+Subscription Agreement, the Intel Quartus Prime License Agreement,
+the Intel FPGA IP License Agreement, or other applicable license
+agreement, including, without limitation, that your use is for
+the sole purpose of programming logic devices manufactured by
+Intel and sold by Intel or its authorized distributors.  Please
+refer to the applicable agreement for further details.
+
+
+
++----------------------------------------------------------------------------------+
+; Analysis & Synthesis Summary                                                     ;
++------------------------------------+---------------------------------------------+
+; Analysis & Synthesis Status        ; Successful - Thu Dec 03 15:44:16 2020       ;
+; Quartus Prime Version              ; 18.0.0 Build 614 04/24/2018 SJ Lite Edition ;
+; Revision Name                      ; chip_checker                                ;
+; Top-level Entity Name              ; chip_checker                                ;
+; Family                             ; MAX 10                                      ;
+; Total logic elements               ; 53                                          ;
+;     Total combinational functions  ; 53                                          ;
+;     Dedicated logic registers      ; 15                                          ;
+; Total registers                    ; 15                                          ;
+; Total pins                         ; 67                                          ;
+; Total virtual pins                 ; 0                                           ;
+; Total memory bits                  ; 0                                           ;
+; Embedded Multiplier 9-bit elements ; 0                                           ;
+; Total PLLs                         ; 0                                           ;
+; UFM blocks                         ; 0                                           ;
+; ADC blocks                         ; 0                                           ;
++------------------------------------+---------------------------------------------+
+
+
++------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Settings                                                                              ;
++------------------------------------------------------------------+--------------------+--------------------+
+; Option                                                           ; Setting            ; Default Value      ;
++------------------------------------------------------------------+--------------------+--------------------+
+; Device                                                           ; 10M50DAF484C7G     ;                    ;
+; Top-level entity name                                            ; chip_checker       ; chip_checker       ;
+; Family name                                                      ; MAX 10             ; Cyclone V          ;
+; Use smart compilation                                            ; Off                ; Off                ;
+; Enable parallel Assembler and Timing Analyzer during compilation ; On                 ; On                 ;
+; Enable compact report table                                      ; Off                ; Off                ;
+; Restructure Multiplexers                                         ; Auto               ; Auto               ;
+; Create Debugging Nodes for IP Cores                              ; Off                ; Off                ;
+; Preserve fewer node names                                        ; On                 ; On                 ;
+; Intel FPGA IP Evaluation Mode                                    ; Enable             ; Enable             ;
+; Verilog Version                                                  ; Verilog_2001       ; Verilog_2001       ;
+; VHDL Version                                                     ; VHDL_1993          ; VHDL_1993          ;
+; State Machine Processing                                         ; Auto               ; Auto               ;
+; Safe State Machine                                               ; Off                ; Off                ;
+; Extract Verilog State Machines                                   ; On                 ; On                 ;
+; Extract VHDL State Machines                                      ; On                 ; On                 ;
+; Ignore Verilog initial constructs                                ; Off                ; Off                ;
+; Iteration limit for constant Verilog loops                       ; 5000               ; 5000               ;
+; Iteration limit for non-constant Verilog loops                   ; 250                ; 250                ;
+; Add Pass-Through Logic to Inferred RAMs                          ; On                 ; On                 ;
+; Infer RAMs from Raw Logic                                        ; On                 ; On                 ;
+; Parallel Synthesis                                               ; On                 ; On                 ;
+; DSP Block Balancing                                              ; Auto               ; Auto               ;
+; NOT Gate Push-Back                                               ; On                 ; On                 ;
+; Power-Up Don't Care                                              ; On                 ; On                 ;
+; Remove Redundant Logic Cells                                     ; Off                ; Off                ;
+; Remove Duplicate Registers                                       ; On                 ; On                 ;
+; Ignore CARRY Buffers                                             ; Off                ; Off                ;
+; Ignore CASCADE Buffers                                           ; Off                ; Off                ;
+; Ignore GLOBAL Buffers                                            ; Off                ; Off                ;
+; Ignore ROW GLOBAL Buffers                                        ; Off                ; Off                ;
+; Ignore LCELL Buffers                                             ; Off                ; Off                ;
+; Ignore SOFT Buffers                                              ; On                 ; On                 ;
+; Limit AHDL Integers to 32 Bits                                   ; Off                ; Off                ;
+; Optimization Technique                                           ; Balanced           ; Balanced           ;
+; Carry Chain Length                                               ; 70                 ; 70                 ;
+; Auto Carry Chains                                                ; On                 ; On                 ;
+; Auto Open-Drain Pins                                             ; On                 ; On                 ;
+; Perform WYSIWYG Primitive Resynthesis                            ; Off                ; Off                ;
+; Auto ROM Replacement                                             ; On                 ; On                 ;
+; Auto RAM Replacement                                             ; On                 ; On                 ;
+; Auto DSP Block Replacement                                       ; On                 ; On                 ;
+; Auto Shift Register Replacement                                  ; Auto               ; Auto               ;
+; Allow Shift Register Merging across Hierarchies                  ; Auto               ; Auto               ;
+; Auto Clock Enable Replacement                                    ; On                 ; On                 ;
+; Strict RAM Replacement                                           ; Off                ; Off                ;
+; Allow Synchronous Control Signals                                ; On                 ; On                 ;
+; Force Use of Synchronous Clear Signals                           ; Off                ; Off                ;
+; Auto RAM Block Balancing                                         ; On                 ; On                 ;
+; Auto RAM to Logic Cell Conversion                                ; Off                ; Off                ;
+; Auto Resource Sharing                                            ; Off                ; Off                ;
+; Allow Any RAM Size For Recognition                               ; Off                ; Off                ;
+; Allow Any ROM Size For Recognition                               ; Off                ; Off                ;
+; Allow Any Shift Register Size For Recognition                    ; Off                ; Off                ;
+; Use LogicLock Constraints during Resource Balancing              ; On                 ; On                 ;
+; Ignore translate_off and synthesis_off directives                ; Off                ; Off                ;
+; Timing-Driven Synthesis                                          ; On                 ; On                 ;
+; Report Parameter Settings                                        ; On                 ; On                 ;
+; Report Source Assignments                                        ; On                 ; On                 ;
+; Report Connectivity Checks                                       ; On                 ; On                 ;
+; Ignore Maximum Fan-Out Assignments                               ; Off                ; Off                ;
+; Synchronization Register Chain Length                            ; 2                  ; 2                  ;
+; Power Optimization During Synthesis                              ; Normal compilation ; Normal compilation ;
+; HDL message level                                                ; Level2             ; Level2             ;
+; Suppress Register Optimization Related Messages                  ; Off                ; Off                ;
+; Number of Removed Registers Reported in Synthesis Report         ; 5000               ; 5000               ;
+; Number of Swept Nodes Reported in Synthesis Report               ; 5000               ; 5000               ;
+; Number of Inverted Registers Reported in Synthesis Report        ; 100                ; 100                ;
+; Clock MUX Protection                                             ; On                 ; On                 ;
+; Auto Gated Clock Conversion                                      ; Off                ; Off                ;
+; Block Design Naming                                              ; Auto               ; Auto               ;
+; SDC constraint protection                                        ; Off                ; Off                ;
+; Synthesis Effort                                                 ; Auto               ; Auto               ;
+; Shift Register Replacement - Allow Asynchronous Clear Signal     ; On                 ; On                 ;
+; Pre-Mapping Resynthesis Optimization                             ; Off                ; Off                ;
+; Analysis & Synthesis Message Level                               ; Medium             ; Medium             ;
+; Disable Register Merging Across Hierarchies                      ; Auto               ; Auto               ;
+; Resource Aware Inference For Block RAM                           ; On                 ; On                 ;
++------------------------------------------------------------------+--------------------+--------------------+
+
+
++------------------------------------------+
+; Parallel Compilation                     ;
++----------------------------+-------------+
+; Processors                 ; Number      ;
++----------------------------+-------------+
+; Number detected on machine ; 4           ;
+; Maximum allowed            ; 4           ;
+;                            ;             ;
+; Average used               ; 1.00        ;
+; Maximum used               ; 4           ;
+;                            ;             ;
+; Usage by Processor         ; % Time Used ;
+;     Processor 1            ; 100.0%      ;
+;     Processor 2            ;   0.0%      ;
+;     Processors 3-4         ;   0.0%      ;
++----------------------------+-------------+
+
+
++----------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                             ;
++----------------------------------+-----------------+------------------------------+------------------------------------------------------+---------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type                    ; File Name with Absolute Path                         ; Library ;
++----------------------------------+-----------------+------------------------------+------------------------------------------------------+---------+
+; HexDriver.sv                     ; yes             ; User SystemVerilog HDL File  ; D:/Classes/ECE385/chip_checker/HexDriver.sv          ;         ;
+; chip_checker.sv                  ; yes             ; User SystemVerilog HDL File  ; D:/Classes/ECE385/chip_checker/chip_checker.sv       ;         ;
+; chip_checker_state.sv            ; yes             ; User SystemVerilog HDL File  ; D:/Classes/ECE385/chip_checker/chip_checker_state.sv ;         ;
+; chip_7402.sv                     ; yes             ; User SystemVerilog HDL File  ; D:/Classes/ECE385/chip_checker/chip_7402.sv          ;         ;
++----------------------------------+-----------------+------------------------------+------------------------------------------------------+---------+
+
+
++-------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Usage Summary                                                           ;
++---------------------------------------------+---------------------------------------------------------+
+; Resource                                    ; Usage                                                   ;
++---------------------------------------------+---------------------------------------------------------+
+; Estimated Total logic elements              ; 53                                                      ;
+;                                             ;                                                         ;
+; Total combinational functions               ; 53                                                      ;
+; Logic element usage by number of LUT inputs ;                                                         ;
+;     -- 4 input functions                    ; 41                                                      ;
+;     -- 3 input functions                    ; 8                                                       ;
+;     -- <=2 input functions                  ; 4                                                       ;
+;                                             ;                                                         ;
+; Logic elements by mode                      ;                                                         ;
+;     -- normal mode                          ; 53                                                      ;
+;     -- arithmetic mode                      ; 0                                                       ;
+;                                             ;                                                         ;
+; Total registers                             ; 15                                                      ;
+;     -- Dedicated logic registers            ; 15                                                      ;
+;     -- I/O registers                        ; 0                                                       ;
+;                                             ;                                                         ;
+; I/O pins                                    ; 67                                                      ;
+;                                             ;                                                         ;
+; Embedded Multiplier 9-bit elements          ; 0                                                       ;
+;                                             ;                                                         ;
+; Maximum fan-out node                        ; chip_checker_state:chip_checker_state0|State.DispResult ;
+; Maximum fan-out                             ; 17                                                      ;
+; Total fan-out                               ; 321                                                     ;
+; Average fan-out                             ; 1.59                                                    ;
++---------------------------------------------+---------------------------------------------------------+
+
+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                                                                         ;
++---------------------------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+------------------------------------------------------+--------------------+--------------+
+; Compilation Hierarchy Node                  ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; UFM Blocks ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; ADC blocks ; Full Hierarchy Name                                  ; Entity Name        ; Library Name ;
++---------------------------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+------------------------------------------------------+--------------------+--------------+
+; |chip_checker                               ; 53 (17)             ; 15 (2)                    ; 0           ; 0          ; 0            ; 0       ; 0         ; 67   ; 0            ; 0          ; |chip_checker                                        ; chip_checker       ; work         ;
+;    |HexDriver:AHex0|                        ; 7 (7)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |chip_checker|HexDriver:AHex0                        ; HexDriver          ; work         ;
+;    |HexDriver:AHex1|                        ; 7 (7)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |chip_checker|HexDriver:AHex1                        ; HexDriver          ; work         ;
+;    |HexDriver:BHex0|                        ; 1 (1)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |chip_checker|HexDriver:BHex0                        ; HexDriver          ; work         ;
+;    |chip_7402:chip_7402_0|                  ; 14 (14)             ; 7 (7)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |chip_checker|chip_7402:chip_7402_0                  ; chip_7402          ; work         ;
+;    |chip_checker_state:chip_checker_state0| ; 7 (7)               ; 6 (6)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |chip_checker|chip_checker_state:chip_checker_state0 ; chip_checker_state ; work         ;
++---------------------------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+------------------------------------------------------+--------------------+--------------+
+Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
+
+
+Encoding Type:  One-Hot
++---------------------------------------------------------------------+
+; State Machine - |chip_checker|chip_7402:chip_7402_0|State           ;
++--------------+--------------+------------+-----------+--------------+
+; Name         ; State.Done_s ; State.Test ; State.Set ; State.Halted ;
++--------------+--------------+------------+-----------+--------------+
+; State.Halted ; 0            ; 0          ; 0         ; 0            ;
+; State.Set    ; 0            ; 0          ; 1         ; 1            ;
+; State.Test   ; 0            ; 1          ; 0         ; 1            ;
+; State.Done_s ; 1            ; 0          ; 0         ; 1            ;
++--------------+--------------+------------+-----------+--------------+
+
+
+Encoding Type:  One-Hot
++----------------------------------------------------------------------------------------------------------------------+
+; State Machine - |chip_checker|chip_checker_state:chip_checker_state0|State                                           ;
++------------------+------------------+-----------------+---------------+---------------+---------------+--------------+
+; Name             ; State.DispResult ; State.GetResult ; State.Choose3 ; State.Choose2 ; State.Choose1 ; State.Halted ;
++------------------+------------------+-----------------+---------------+---------------+---------------+--------------+
+; State.Halted     ; 0                ; 0               ; 0             ; 0             ; 0             ; 0            ;
+; State.Choose1    ; 0                ; 0               ; 0             ; 0             ; 1             ; 1            ;
+; State.Choose2    ; 0                ; 0               ; 0             ; 1             ; 0             ; 1            ;
+; State.Choose3    ; 0                ; 0               ; 1             ; 0             ; 0             ; 1            ;
+; State.GetResult  ; 0                ; 1               ; 0             ; 0             ; 0             ; 1            ;
+; State.DispResult ; 1                ; 0               ; 0             ; 0             ; 0             ; 1            ;
++------------------+------------------+-----------------+---------------+---------------+---------------+--------------+
+
+
++----------------------------------------------------------------------------------------------------------------+
+; User-Specified and Inferred Latches                                                                            ;
++----------------------------------------------------+----------------------------------+------------------------+
+; Latch Name                                         ; Latch Enable Signal              ; Free of Timing Hazards ;
++----------------------------------------------------+----------------------------------+------------------------+
+; chip_7402:chip_7402_0|Pin12                        ; chip_7402:chip_7402_0|State.Test ; yes                    ;
+; chip_7402:chip_7402_0|Pin9                         ; chip_7402:chip_7402_0|State.Test ; yes                    ;
+; chip_7402:chip_7402_0|Pin5                         ; chip_7402:chip_7402_0|State.Test ; yes                    ;
+; chip_7402:chip_7402_0|Pin2                         ; chip_7402:chip_7402_0|State.Test ; yes                    ;
+; Number of user-specified and inferred latches = 4  ;                                  ;                        ;
++----------------------------------------------------+----------------------------------+------------------------+
+Note: All latches listed above may not be present at the end of synthesis due to various synthesis optimizations.
+
+
++---------------------------------------------------------------------+
+; Registers Removed During Synthesis                                  ;
++------------------------------------------------+--------------------+
+; Register name                                  ; Reason for Removal ;
++------------------------------------------------+--------------------+
+; chip_7402:chip_7402_0|State~2                  ; Lost fanout        ;
+; chip_7402:chip_7402_0|State~3                  ; Lost fanout        ;
+; chip_7402:chip_7402_0|State~4                  ; Lost fanout        ;
+; chip_7402:chip_7402_0|State~5                  ; Lost fanout        ;
+; chip_checker_state:chip_checker_state0|State~2 ; Lost fanout        ;
+; chip_checker_state:chip_checker_state0|State~3 ; Lost fanout        ;
+; chip_checker_state:chip_checker_state0|State~4 ; Lost fanout        ;
+; chip_checker_state:chip_checker_state0|State~5 ; Lost fanout        ;
+; chip_checker_state:chip_checker_state0|State~6 ; Lost fanout        ;
+; chip_checker_state:chip_checker_state0|State~7 ; Lost fanout        ;
+; Total Number of Removed Registers = 10         ;                    ;
++------------------------------------------------+--------------------+
+
+
++------------------------------------------------------+
+; General Register Statistics                          ;
++----------------------------------------------+-------+
+; Statistic                                    ; Value ;
++----------------------------------------------+-------+
+; Total registers                              ; 15    ;
+; Number of registers using Synchronous Clear  ; 0     ;
+; Number of registers using Synchronous Load   ; 0     ;
+; Number of registers using Asynchronous Clear ; 0     ;
+; Number of registers using Asynchronous Load  ; 0     ;
+; Number of registers using Clock Enable       ; 0     ;
+; Number of registers using Preset             ; 0     ;
++----------------------------------------------+-------+
+
+
++---------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                          ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------------+
+; 6:1                ; 4 bits    ; 16 LEs        ; 4 LEs                ; 12 LEs                 ; No         ; |chip_checker|Mux1                        ;
+; 7:1                ; 2 bits    ; 8 LEs         ; 6 LEs                ; 2 LEs                  ; No         ; |chip_checker|chip_7402:chip_7402_0|State ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------------+
+
+
++-----------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "chip_7402:chip_7402_0"                                                               ;
++-------+--------+----------+-------------------------------------------------------------------------------------+
+; Port  ; Type   ; Severity ; Details                                                                             ;
++-------+--------+----------+-------------------------------------------------------------------------------------+
+; Pin11 ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; Pin8  ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; Pin6  ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; Pin3  ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++-------+--------+----------+-------------------------------------------------------------------------------------+
+
+
++--------------------------------------------------+
+; Port Connectivity Checks: "HexDriver:CHex3"      ;
++------+-------+----------+------------------------+
+; Port ; Type  ; Severity ; Details                ;
++------+-------+----------+------------------------+
+; In0  ; Input ; Info     ; Explicitly unconnected ;
++------+-------+----------+------------------------+
+
+
++--------------------------------------------------+
+; Port Connectivity Checks: "HexDriver:CHex2"      ;
++------+-------+----------+------------------------+
+; Port ; Type  ; Severity ; Details                ;
++------+-------+----------+------------------------+
+; In0  ; Input ; Info     ; Explicitly unconnected ;
++------+-------+----------+------------------------+
+
+
++---------------------------------------------+
+; Port Connectivity Checks: "HexDriver:BHex1" ;
++--------+-------+----------+-----------------+
+; Port   ; Type  ; Severity ; Details         ;
++--------+-------+----------+-----------------+
+; In0[2] ; Input ; Info     ; Stuck at GND    ;
++--------+-------+----------+-----------------+
+
+
++---------------------------------------------+
+; Port Connectivity Checks: "HexDriver:BHex0" ;
++--------+-------+----------+-----------------+
+; Port   ; Type  ; Severity ; Details         ;
++--------+-------+----------+-----------------+
+; In0[2] ; Input ; Info     ; Stuck at GND    ;
++--------+-------+----------+-----------------+
+
+
++-----------------------------------------------------+
+; Post-Synthesis Netlist Statistics for Top Partition ;
++-----------------------+-----------------------------+
+; Type                  ; Count                       ;
++-----------------------+-----------------------------+
+; boundary_port         ; 67                          ;
+; cycloneiii_ff         ; 15                          ;
+;     plain             ; 15                          ;
+; cycloneiii_lcell_comb ; 58                          ;
+;     normal            ; 58                          ;
+;         0 data inputs ; 2                           ;
+;         1 data inputs ; 3                           ;
+;         2 data inputs ; 4                           ;
+;         3 data inputs ; 8                           ;
+;         4 data inputs ; 41                          ;
+;                       ;                             ;
+; Max LUT depth         ; 4.00                        ;
+; Average LUT depth     ; 2.34                        ;
++-----------------------+-----------------------------+
+
+
++-------------------------------+
+; Elapsed Time Per Partition    ;
++----------------+--------------+
+; Partition Name ; Elapsed Time ;
++----------------+--------------+
+; Top            ; 00:00:00     ;
++----------------+--------------+
+
+
++-------------------------------+
+; Analysis & Synthesis Messages ;
++-------------------------------+
+Info: *******************************************************************
+Info: Running Quartus Prime Analysis & Synthesis
+    Info: Version 18.0.0 Build 614 04/24/2018 SJ Lite Edition
+    Info: Processing started: Thu Dec 03 15:44:05 2020
+Info: Command: quartus_map --read_settings_files=on --write_settings_files=off chip_checker -c chip_checker
+Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
+Info (20030): Parallel compilation is enabled and will use 4 of the 4 processors detected
+Info (12021): Found 1 design units, including 1 entities, in source file testbench.sv
+    Info (12023): Found entity 1: testbench File: D:/Classes/ECE385/chip_checker/testbench.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file hexdriver.sv
+    Info (12023): Found entity 1: HexDriver File: D:/Classes/ECE385/chip_checker/HexDriver.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file chip_checker.sv
+    Info (12023): Found entity 1: chip_checker File: D:/Classes/ECE385/chip_checker/chip_checker.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file chip_checker_state.sv
+    Info (12023): Found entity 1: chip_checker_state File: D:/Classes/ECE385/chip_checker/chip_checker_state.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file check_and.sv
+    Info (12023): Found entity 1: chip_Quad_2_input_NAND File: D:/Classes/ECE385/chip_checker/check_and.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file chip_7402.sv
+    Info (12023): Found entity 1: chip_7402 File: D:/Classes/ECE385/chip_checker/chip_7402.sv Line: 1
+Info (12127): Elaborating entity "chip_checker" for the top level hierarchy
+Warning (10858): Verilog HDL warning at chip_checker.sv(22): object RSLT_1 used but never assigned File: D:/Classes/ECE385/chip_checker/chip_checker.sv Line: 22
+Warning (10230): Verilog HDL assignment warning at chip_checker.sv(109): truncated value with size 8 to match size of target (4) File: D:/Classes/ECE385/chip_checker/chip_checker.sv Line: 109
+Warning (10230): Verilog HDL assignment warning at chip_checker.sv(110): truncated value with size 8 to match size of target (4) File: D:/Classes/ECE385/chip_checker/chip_checker.sv Line: 110
+Warning (10230): Verilog HDL assignment warning at chip_checker.sv(111): truncated value with size 8 to match size of target (4) File: D:/Classes/ECE385/chip_checker/chip_checker.sv Line: 111
+Warning (10230): Verilog HDL assignment warning at chip_checker.sv(112): truncated value with size 8 to match size of target (4) File: D:/Classes/ECE385/chip_checker/chip_checker.sv Line: 112
+Warning (10230): Verilog HDL assignment warning at chip_checker.sv(116): truncated value with size 8 to match size of target (4) File: D:/Classes/ECE385/chip_checker/chip_checker.sv Line: 116
+Warning (10230): Verilog HDL assignment warning at chip_checker.sv(117): truncated value with size 8 to match size of target (4) File: D:/Classes/ECE385/chip_checker/chip_checker.sv Line: 117
+Warning (10230): Verilog HDL assignment warning at chip_checker.sv(118): truncated value with size 8 to match size of target (4) File: D:/Classes/ECE385/chip_checker/chip_checker.sv Line: 118
+Warning (10230): Verilog HDL assignment warning at chip_checker.sv(119): truncated value with size 8 to match size of target (4) File: D:/Classes/ECE385/chip_checker/chip_checker.sv Line: 119
+Info (10264): Verilog HDL Case Statement information at chip_checker.sv(135): all case item expressions in this case statement are onehot File: D:/Classes/ECE385/chip_checker/chip_checker.sv Line: 135
+Info (10264): Verilog HDL Case Statement information at chip_checker.sv(151): all case item expressions in this case statement are onehot File: D:/Classes/ECE385/chip_checker/chip_checker.sv Line: 151
+Warning (10030): Net "done[1]" at chip_checker.sv(33) has no driver or initial value, using a default initial value '0' File: D:/Classes/ECE385/chip_checker/chip_checker.sv Line: 33
+Warning (10030): Net "Pin13_agg[5..2]" at chip_checker.sv(38) has no driver or initial value, using a default initial value '0' File: D:/Classes/ECE385/chip_checker/chip_checker.sv Line: 38
+Warning (10030): Net "Pin13_agg[0]" at chip_checker.sv(38) has no driver or initial value, using a default initial value '0' File: D:/Classes/ECE385/chip_checker/chip_checker.sv Line: 38
+Warning (10030): Net "Pin12_agg[5..2]" at chip_checker.sv(39) has no driver or initial value, using a default initial value '0' File: D:/Classes/ECE385/chip_checker/chip_checker.sv Line: 39
+Warning (10030): Net "Pin12_agg[0]" at chip_checker.sv(39) has no driver or initial value, using a default initial value '0' File: D:/Classes/ECE385/chip_checker/chip_checker.sv Line: 39
+Warning (10030): Net "Pin10_agg[5..2]" at chip_checker.sv(41) has no driver or initial value, using a default initial value '0' File: D:/Classes/ECE385/chip_checker/chip_checker.sv Line: 41
+Warning (10030): Net "Pin10_agg[0]" at chip_checker.sv(41) has no driver or initial value, using a default initial value '0' File: D:/Classes/ECE385/chip_checker/chip_checker.sv Line: 41
+Warning (10030): Net "Pin9_agg[5..2]" at chip_checker.sv(42) has no driver or initial value, using a default initial value '0' File: D:/Classes/ECE385/chip_checker/chip_checker.sv Line: 42
+Warning (10030): Net "Pin9_agg[0]" at chip_checker.sv(42) has no driver or initial value, using a default initial value '0' File: D:/Classes/ECE385/chip_checker/chip_checker.sv Line: 42
+Warning (10030): Net "Pin5_agg[5..2]" at chip_checker.sv(44) has no driver or initial value, using a default initial value '0' File: D:/Classes/ECE385/chip_checker/chip_checker.sv Line: 44
+Warning (10030): Net "Pin5_agg[0]" at chip_checker.sv(44) has no driver or initial value, using a default initial value '0' File: D:/Classes/ECE385/chip_checker/chip_checker.sv Line: 44
+Warning (10030): Net "Pin4_agg[5..2]" at chip_checker.sv(45) has no driver or initial value, using a default initial value '0' File: D:/Classes/ECE385/chip_checker/chip_checker.sv Line: 45
+Warning (10030): Net "Pin4_agg[0]" at chip_checker.sv(45) has no driver or initial value, using a default initial value '0' File: D:/Classes/ECE385/chip_checker/chip_checker.sv Line: 45
+Warning (10030): Net "Pin2_agg[5..2]" at chip_checker.sv(47) has no driver or initial value, using a default initial value '0' File: D:/Classes/ECE385/chip_checker/chip_checker.sv Line: 47
+Warning (10030): Net "Pin2_agg[0]" at chip_checker.sv(47) has no driver or initial value, using a default initial value '0' File: D:/Classes/ECE385/chip_checker/chip_checker.sv Line: 47
+Warning (10030): Net "Pin1_agg[5..2]" at chip_checker.sv(48) has no driver or initial value, using a default initial value '0' File: D:/Classes/ECE385/chip_checker/chip_checker.sv Line: 48
+Warning (10030): Net "Pin1_agg[0]" at chip_checker.sv(48) has no driver or initial value, using a default initial value '0' File: D:/Classes/ECE385/chip_checker/chip_checker.sv Line: 48
+Warning (10030): Net "RSLT_1" at chip_checker.sv(22) has no driver or initial value, using a default initial value '0' File: D:/Classes/ECE385/chip_checker/chip_checker.sv Line: 22
+Info (12128): Elaborating entity "HexDriver" for hierarchy "HexDriver:AHex0" File: D:/Classes/ECE385/chip_checker/chip_checker.sv Line: 52
+Info (12128): Elaborating entity "chip_checker_state" for hierarchy "chip_checker_state:chip_checker_state0" File: D:/Classes/ECE385/chip_checker/chip_checker.sv Line: 168
+Info (12128): Elaborating entity "chip_7402" for hierarchy "chip_7402:chip_7402_0" File: D:/Classes/ECE385/chip_checker/chip_checker.sv Line: 170
+Info (10041): Inferred latch for "Pin12" at chip_7402.sv(51) File: D:/Classes/ECE385/chip_checker/chip_7402.sv Line: 51
+Info (10041): Inferred latch for "Pin11" at chip_7402.sv(51) File: D:/Classes/ECE385/chip_checker/chip_7402.sv Line: 51
+Info (10041): Inferred latch for "Pin9" at chip_7402.sv(51) File: D:/Classes/ECE385/chip_checker/chip_7402.sv Line: 51
+Info (10041): Inferred latch for "Pin8" at chip_7402.sv(51) File: D:/Classes/ECE385/chip_checker/chip_7402.sv Line: 51
+Info (10041): Inferred latch for "Pin6" at chip_7402.sv(51) File: D:/Classes/ECE385/chip_checker/chip_7402.sv Line: 51
+Info (10041): Inferred latch for "Pin5" at chip_7402.sv(51) File: D:/Classes/ECE385/chip_checker/chip_7402.sv Line: 51
+Info (10041): Inferred latch for "Pin3" at chip_7402.sv(51) File: D:/Classes/ECE385/chip_checker/chip_7402.sv Line: 51
+Info (10041): Inferred latch for "Pin2" at chip_7402.sv(51) File: D:/Classes/ECE385/chip_checker/chip_7402.sv Line: 51
+Info (13025): Duplicate LATCH primitives merged into single LATCH primitive
+    Info (13026): Duplicate LATCH primitive "chip_7402:chip_7402_0|Pin9" merged with LATCH primitive "chip_7402:chip_7402_0|Pin12" File: D:/Classes/ECE385/chip_checker/chip_7402.sv Line: 8
+    Info (13026): Duplicate LATCH primitive "chip_7402:chip_7402_0|Pin2" merged with LATCH primitive "chip_7402:chip_7402_0|Pin5" File: D:/Classes/ECE385/chip_checker/chip_7402.sv Line: 14
+Warning (13024): Output pins are stuck at VCC or GND
+    Warning (13410): Pin "HEX2[1]" is stuck at GND File: D:/Classes/ECE385/chip_checker/chip_checker.sv Line: 3
+    Warning (13410): Pin "HEX2[2]" is stuck at GND File: D:/Classes/ECE385/chip_checker/chip_checker.sv Line: 3
+    Warning (13410): Pin "HEX3[1]" is stuck at GND File: D:/Classes/ECE385/chip_checker/chip_checker.sv Line: 3
+    Warning (13410): Pin "HEX3[2]" is stuck at GND File: D:/Classes/ECE385/chip_checker/chip_checker.sv Line: 3
+    Warning (13410): Pin "HEX4[0]" is stuck at GND File: D:/Classes/ECE385/chip_checker/chip_checker.sv Line: 3
+    Warning (13410): Pin "HEX4[1]" is stuck at GND File: D:/Classes/ECE385/chip_checker/chip_checker.sv Line: 3
+    Warning (13410): Pin "HEX4[2]" is stuck at GND File: D:/Classes/ECE385/chip_checker/chip_checker.sv Line: 3
+    Warning (13410): Pin "HEX4[3]" is stuck at GND File: D:/Classes/ECE385/chip_checker/chip_checker.sv Line: 3
+    Warning (13410): Pin "HEX4[4]" is stuck at GND File: D:/Classes/ECE385/chip_checker/chip_checker.sv Line: 3
+    Warning (13410): Pin "HEX4[5]" is stuck at GND File: D:/Classes/ECE385/chip_checker/chip_checker.sv Line: 3
+    Warning (13410): Pin "HEX4[6]" is stuck at VCC File: D:/Classes/ECE385/chip_checker/chip_checker.sv Line: 3
+    Warning (13410): Pin "HEX5[0]" is stuck at GND File: D:/Classes/ECE385/chip_checker/chip_checker.sv Line: 3
+    Warning (13410): Pin "HEX5[1]" is stuck at GND File: D:/Classes/ECE385/chip_checker/chip_checker.sv Line: 3
+    Warning (13410): Pin "HEX5[2]" is stuck at GND File: D:/Classes/ECE385/chip_checker/chip_checker.sv Line: 3
+    Warning (13410): Pin "HEX5[3]" is stuck at GND File: D:/Classes/ECE385/chip_checker/chip_checker.sv Line: 3
+    Warning (13410): Pin "HEX5[4]" is stuck at GND File: D:/Classes/ECE385/chip_checker/chip_checker.sv Line: 3
+    Warning (13410): Pin "HEX5[5]" is stuck at GND File: D:/Classes/ECE385/chip_checker/chip_checker.sv Line: 3
+    Warning (13410): Pin "HEX5[6]" is stuck at VCC File: D:/Classes/ECE385/chip_checker/chip_checker.sv Line: 3
+    Warning (13410): Pin "Pin13" is stuck at GND File: D:/Classes/ECE385/chip_checker/chip_checker.sv Line: 4
+    Warning (13410): Pin "Pin10" is stuck at GND File: D:/Classes/ECE385/chip_checker/chip_checker.sv Line: 7
+    Warning (13410): Pin "Pin4" is stuck at GND File: D:/Classes/ECE385/chip_checker/chip_checker.sv Line: 12
+    Warning (13410): Pin "Pin1" is stuck at GND File: D:/Classes/ECE385/chip_checker/chip_checker.sv Line: 16
+Info (286030): Timing-Driven Synthesis is running
+Info (17049): 10 registers lost all their fanouts during netlist optimizations.
+Warning (20013): Ignored 24 assignments for entity "DE10_LITE_Default" -- entity does not exist in design
+    Warning (20014): Assignment for entity set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -entity DE10_LITE_Default -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -entity DE10_LITE_Default -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -entity DE10_LITE_Default -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_PRESERVE_HIGH_SPEED_TILES ON -entity DE10_LITE_Default -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_IGNORE_SOURCE_FILE_CHANGES OFF -entity DE10_LITE_Default -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_ALWAYS_USE_QXP_NETLIST OFF -entity DE10_LITE_Default -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_COLOR 16764057 -entity DE10_LITE_Default -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_IMPORT_ASSIGNMENTS ON -entity DE10_LITE_Default -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_IMPORT_EXISTING_ASSIGNMENTS REPLACE_CONFLICTING -entity DE10_LITE_Default -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_IMPORT_EXISTING_LOGICLOCK_REGIONS UPDATE_CONFLICTING -entity DE10_LITE_Default -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_IMPORT_PIN_ASSIGNMENTS ON -entity DE10_LITE_Default -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_IMPORT_PROMOTE_ASSIGNMENTS ON -entity DE10_LITE_Default -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_TYPE STANDARD_PARTITION -entity DE10_LITE_Default -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name ALLOW_MULTIPLE_PERSONAS OFF -entity DE10_LITE_Default -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_ASD_REGION_ID 1 -entity DE10_LITE_Default -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name CROSS_BOUNDARY_OPTIMIZATIONS OFF -entity DE10_LITE_Default -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PROPAGATE_CONSTANTS_ON_INPUTS ON -entity DE10_LITE_Default -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PROPAGATE_INVERSIONS_ON_INPUTS ON -entity DE10_LITE_Default -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name REMOVE_LOGIC_ON_UNCONNECTED_OUTPUTS ON -entity DE10_LITE_Default -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name MERGE_EQUIVALENT_INPUTS ON -entity DE10_LITE_Default -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name MERGE_EQUIVALENT_BIDIRS ON -entity DE10_LITE_Default -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name ABSORB_PATHS_FROM_OUTPUTS_TO_INPUTS ON -entity DE10_LITE_Default -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_EXTRACT_HARD_BLOCK_NODES ON -entity DE10_LITE_Default -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_ENABLE_STRICT_PRESERVATION OFF -entity DE10_LITE_Default -section_id Top was ignored
+Warning (20013): Ignored 24 assignments for entity "lab7" -- entity does not exist in design
+    Warning (20014): Assignment for entity set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -entity lab7 -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -entity lab7 -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -entity lab7 -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_PRESERVE_HIGH_SPEED_TILES ON -entity lab7 -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_IGNORE_SOURCE_FILE_CHANGES OFF -entity lab7 -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_ALWAYS_USE_QXP_NETLIST OFF -entity lab7 -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_COLOR 16764057 -entity lab7 -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_IMPORT_ASSIGNMENTS ON -entity lab7 -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_IMPORT_EXISTING_ASSIGNMENTS REPLACE_CONFLICTING -entity lab7 -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_IMPORT_EXISTING_LOGICLOCK_REGIONS UPDATE_CONFLICTING -entity lab7 -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_IMPORT_PIN_ASSIGNMENTS ON -entity lab7 -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_IMPORT_PROMOTE_ASSIGNMENTS ON -entity lab7 -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_TYPE STANDARD_PARTITION -entity lab7 -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name ALLOW_MULTIPLE_PERSONAS OFF -entity lab7 -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_ASD_REGION_ID 1 -entity lab7 -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name CROSS_BOUNDARY_OPTIMIZATIONS OFF -entity lab7 -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PROPAGATE_CONSTANTS_ON_INPUTS ON -entity lab7 -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PROPAGATE_INVERSIONS_ON_INPUTS ON -entity lab7 -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name REMOVE_LOGIC_ON_UNCONNECTED_OUTPUTS ON -entity lab7 -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name MERGE_EQUIVALENT_INPUTS ON -entity lab7 -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name MERGE_EQUIVALENT_BIDIRS ON -entity lab7 -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name ABSORB_PATHS_FROM_OUTPUTS_TO_INPUTS ON -entity lab7 -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_EXTRACT_HARD_BLOCK_NODES ON -entity lab7 -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_ENABLE_STRICT_PRESERVATION OFF -entity lab7 -section_id Top was ignored
+Warning (20013): Ignored 24 assignments for entity "lab8" -- entity does not exist in design
+    Warning (20014): Assignment for entity set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -entity lab8 -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -entity lab8 -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -entity lab8 -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_PRESERVE_HIGH_SPEED_TILES ON -entity lab8 -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_IGNORE_SOURCE_FILE_CHANGES OFF -entity lab8 -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_ALWAYS_USE_QXP_NETLIST OFF -entity lab8 -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_COLOR 16764057 -entity lab8 -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_IMPORT_ASSIGNMENTS ON -entity lab8 -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_IMPORT_EXISTING_ASSIGNMENTS REPLACE_CONFLICTING -entity lab8 -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_IMPORT_EXISTING_LOGICLOCK_REGIONS UPDATE_CONFLICTING -entity lab8 -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_IMPORT_PIN_ASSIGNMENTS ON -entity lab8 -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_IMPORT_PROMOTE_ASSIGNMENTS ON -entity lab8 -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_TYPE STANDARD_PARTITION -entity lab8 -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name ALLOW_MULTIPLE_PERSONAS OFF -entity lab8 -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_ASD_REGION_ID 1 -entity lab8 -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name CROSS_BOUNDARY_OPTIMIZATIONS OFF -entity lab8 -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PROPAGATE_CONSTANTS_ON_INPUTS ON -entity lab8 -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PROPAGATE_INVERSIONS_ON_INPUTS ON -entity lab8 -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name REMOVE_LOGIC_ON_UNCONNECTED_OUTPUTS ON -entity lab8 -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name MERGE_EQUIVALENT_INPUTS ON -entity lab8 -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name MERGE_EQUIVALENT_BIDIRS ON -entity lab8 -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name ABSORB_PATHS_FROM_OUTPUTS_TO_INPUTS ON -entity lab8 -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_EXTRACT_HARD_BLOCK_NODES ON -entity lab8 -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_ENABLE_STRICT_PRESERVATION OFF -entity lab8 -section_id Top was ignored
+Warning (20013): Ignored 24 assignments for entity "lab9" -- entity does not exist in design
+    Warning (20014): Assignment for entity set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -entity lab9 -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -entity lab9 -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -entity lab9 -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_PRESERVE_HIGH_SPEED_TILES ON -entity lab9 -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_IGNORE_SOURCE_FILE_CHANGES OFF -entity lab9 -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_ALWAYS_USE_QXP_NETLIST OFF -entity lab9 -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_COLOR 16764057 -entity lab9 -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_IMPORT_ASSIGNMENTS ON -entity lab9 -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_IMPORT_EXISTING_ASSIGNMENTS REPLACE_CONFLICTING -entity lab9 -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_IMPORT_EXISTING_LOGICLOCK_REGIONS UPDATE_CONFLICTING -entity lab9 -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_IMPORT_PIN_ASSIGNMENTS ON -entity lab9 -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_IMPORT_PROMOTE_ASSIGNMENTS ON -entity lab9 -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_TYPE STANDARD_PARTITION -entity lab9 -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name ALLOW_MULTIPLE_PERSONAS OFF -entity lab9 -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_ASD_REGION_ID 1 -entity lab9 -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name CROSS_BOUNDARY_OPTIMIZATIONS OFF -entity lab9 -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PROPAGATE_CONSTANTS_ON_INPUTS ON -entity lab9 -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PROPAGATE_INVERSIONS_ON_INPUTS ON -entity lab9 -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name REMOVE_LOGIC_ON_UNCONNECTED_OUTPUTS ON -entity lab9 -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name MERGE_EQUIVALENT_INPUTS ON -entity lab9 -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name MERGE_EQUIVALENT_BIDIRS ON -entity lab9 -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name ABSORB_PATHS_FROM_OUTPUTS_TO_INPUTS ON -entity lab9 -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_EXTRACT_HARD_BLOCK_NODES ON -entity lab9 -section_id Top was ignored
+    Warning (20014): Assignment for entity set_global_assignment -name PARTITION_ENABLE_STRICT_PRESERVATION OFF -entity lab9 -section_id Top was ignored
+Info (144001): Generated suppressed messages file D:/Classes/ECE385/chip_checker/output_files/chip_checker.map.smsg
+Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
+    Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
+Warning (21074): Design contains 4 input pin(s) that do not drive logic
+    Warning (15610): No output dependent on input pin "Pin11" File: D:/Classes/ECE385/chip_checker/chip_checker.sv Line: 6
+    Warning (15610): No output dependent on input pin "Pin8" File: D:/Classes/ECE385/chip_checker/chip_checker.sv Line: 9
+    Warning (15610): No output dependent on input pin "Pin6" File: D:/Classes/ECE385/chip_checker/chip_checker.sv Line: 10
+    Warning (15610): No output dependent on input pin "Pin3" File: D:/Classes/ECE385/chip_checker/chip_checker.sv Line: 13
+Info (21057): Implemented 120 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 17 input pins
+    Info (21059): Implemented 50 output pins
+    Info (21061): Implemented 53 logic cells
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 156 warnings
+    Info: Peak virtual memory: 4763 megabytes
+    Info: Processing ended: Thu Dec 03 15:44:16 2020
+    Info: Elapsed time: 00:00:11
+    Info: Total CPU time (on all processors): 00:00:24
+
+
++------------------------------------------+
+; Analysis & Synthesis Suppressed Messages ;
++------------------------------------------+
+The suppressed messages can be found in D:/Classes/ECE385/chip_checker/output_files/chip_checker.map.smsg.
+
+

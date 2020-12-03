@@ -1,0 +1,246 @@
+|chip_checker
+SW[0] => Mux0.IN9
+SW[0] => Mux1.IN9
+SW[0] => Mux2.IN9
+SW[0] => Mux3.IN9
+SW[0] => Mux4.IN9
+SW[0] => Mux5.IN9
+SW[0] => Mux6.IN9
+SW[0] => Mux7.IN9
+SW[0] => hex0in.DATAB
+SW[0] => Equal0.IN56
+SW[1] => Mux0.IN8
+SW[1] => Mux1.IN8
+SW[1] => Mux2.IN8
+SW[1] => Mux3.IN8
+SW[1] => Mux4.IN8
+SW[1] => Mux5.IN8
+SW[1] => Mux6.IN8
+SW[1] => Mux7.IN8
+SW[1] => hex0in.DATAB
+SW[1] => Equal0.IN55
+SW[2] => Mux0.IN7
+SW[2] => Mux1.IN7
+SW[2] => Mux2.IN7
+SW[2] => Mux3.IN7
+SW[2] => Mux4.IN7
+SW[2] => Mux5.IN7
+SW[2] => Mux6.IN7
+SW[2] => Mux7.IN7
+SW[2] => hex0in.DATAB
+SW[2] => Equal0.IN54
+SW[3] => Equal0.IN63
+SW[3] => hex0in.DATAB
+SW[4] => Equal0.IN62
+SW[4] => hex1in.DATAB
+SW[5] => Equal0.IN61
+SW[5] => hex1in.DATAB
+SW[6] => Equal0.IN60
+SW[6] => hex1in.DATAB
+SW[7] => Equal0.IN59
+SW[7] => hex1in.DATAB
+SW[8] => Equal0.IN58
+SW[9] => Equal0.IN57
+Clk => Clk.IN2
+Reset => Reset_h.IN2
+Run => Run_h.IN1
+HEX0[0] << HexDriver:AHex0.Out0
+HEX0[1] << HexDriver:AHex0.Out0
+HEX0[2] << HexDriver:AHex0.Out0
+HEX0[3] << HexDriver:AHex0.Out0
+HEX0[4] << HexDriver:AHex0.Out0
+HEX0[5] << HexDriver:AHex0.Out0
+HEX0[6] << HexDriver:AHex0.Out0
+HEX1[0] << HexDriver:AHex1.Out0
+HEX1[1] << HexDriver:AHex1.Out0
+HEX1[2] << HexDriver:AHex1.Out0
+HEX1[3] << HexDriver:AHex1.Out0
+HEX1[4] << HexDriver:AHex1.Out0
+HEX1[5] << HexDriver:AHex1.Out0
+HEX1[6] << HexDriver:AHex1.Out0
+HEX2[0] << HexDriver:BHex0.Out0
+HEX2[1] << HexDriver:BHex0.Out0
+HEX2[2] << HexDriver:BHex0.Out0
+HEX2[3] << HexDriver:BHex0.Out0
+HEX2[4] << HexDriver:BHex0.Out0
+HEX2[5] << HexDriver:BHex0.Out0
+HEX2[6] << HexDriver:BHex0.Out0
+HEX3[0] << HexDriver:BHex1.Out0
+HEX3[1] << HexDriver:BHex1.Out0
+HEX3[2] << HexDriver:BHex1.Out0
+HEX3[3] << HexDriver:BHex1.Out0
+HEX3[4] << HexDriver:BHex1.Out0
+HEX3[5] << HexDriver:BHex1.Out0
+HEX3[6] << HexDriver:BHex1.Out0
+HEX4[0] << HexDriver:CHex2.Out0
+HEX4[1] << HexDriver:CHex2.Out0
+HEX4[2] << HexDriver:CHex2.Out0
+HEX4[3] << HexDriver:CHex2.Out0
+HEX4[4] << HexDriver:CHex2.Out0
+HEX4[5] << HexDriver:CHex2.Out0
+HEX4[6] << HexDriver:CHex2.Out0
+HEX5[0] << HexDriver:CHex3.Out0
+HEX5[1] << HexDriver:CHex3.Out0
+HEX5[2] << HexDriver:CHex3.Out0
+HEX5[3] << HexDriver:CHex3.Out0
+HEX5[4] << HexDriver:CHex3.Out0
+HEX5[5] << HexDriver:CHex3.Out0
+HEX5[6] << HexDriver:CHex3.Out0
+Pin13 << Mux0.DB_MAX_OUTPUT_PORT_TYPE
+Pin12 << Mux1.DB_MAX_OUTPUT_PORT_TYPE
+Pin11 => Pin11.IN1
+Pin10 << Mux2.DB_MAX_OUTPUT_PORT_TYPE
+Pin9 << Mux3.DB_MAX_OUTPUT_PORT_TYPE
+Pin8 => Pin8.IN1
+Pin6 => Pin6.IN1
+Pin5 << Mux4.DB_MAX_OUTPUT_PORT_TYPE
+Pin4 << Mux5.DB_MAX_OUTPUT_PORT_TYPE
+Pin3 => Pin3.IN1
+Pin2 << Mux6.DB_MAX_OUTPUT_PORT_TYPE
+Pin1 << Mux7.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|chip_checker|HexDriver:AHex0
+In0[0] => Decoder0.IN3
+In0[1] => Decoder0.IN2
+In0[2] => Decoder0.IN1
+In0[3] => Decoder0.IN0
+Out0[0] <= WideOr6.DB_MAX_OUTPUT_PORT_TYPE
+Out0[1] <= WideOr5.DB_MAX_OUTPUT_PORT_TYPE
+Out0[2] <= WideOr4.DB_MAX_OUTPUT_PORT_TYPE
+Out0[3] <= WideOr3.DB_MAX_OUTPUT_PORT_TYPE
+Out0[4] <= WideOr2.DB_MAX_OUTPUT_PORT_TYPE
+Out0[5] <= WideOr1.DB_MAX_OUTPUT_PORT_TYPE
+Out0[6] <= WideOr0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|chip_checker|HexDriver:AHex1
+In0[0] => Decoder0.IN3
+In0[1] => Decoder0.IN2
+In0[2] => Decoder0.IN1
+In0[3] => Decoder0.IN0
+Out0[0] <= WideOr6.DB_MAX_OUTPUT_PORT_TYPE
+Out0[1] <= WideOr5.DB_MAX_OUTPUT_PORT_TYPE
+Out0[2] <= WideOr4.DB_MAX_OUTPUT_PORT_TYPE
+Out0[3] <= WideOr3.DB_MAX_OUTPUT_PORT_TYPE
+Out0[4] <= WideOr2.DB_MAX_OUTPUT_PORT_TYPE
+Out0[5] <= WideOr1.DB_MAX_OUTPUT_PORT_TYPE
+Out0[6] <= WideOr0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|chip_checker|HexDriver:BHex0
+In0[0] => Decoder0.IN3
+In0[1] => Decoder0.IN2
+In0[2] => Decoder0.IN1
+In0[3] => Decoder0.IN0
+Out0[0] <= WideOr6.DB_MAX_OUTPUT_PORT_TYPE
+Out0[1] <= WideOr5.DB_MAX_OUTPUT_PORT_TYPE
+Out0[2] <= WideOr4.DB_MAX_OUTPUT_PORT_TYPE
+Out0[3] <= WideOr3.DB_MAX_OUTPUT_PORT_TYPE
+Out0[4] <= WideOr2.DB_MAX_OUTPUT_PORT_TYPE
+Out0[5] <= WideOr1.DB_MAX_OUTPUT_PORT_TYPE
+Out0[6] <= WideOr0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|chip_checker|HexDriver:BHex1
+In0[0] => Decoder0.IN3
+In0[1] => Decoder0.IN2
+In0[2] => Decoder0.IN1
+In0[3] => Decoder0.IN0
+Out0[0] <= WideOr6.DB_MAX_OUTPUT_PORT_TYPE
+Out0[1] <= WideOr5.DB_MAX_OUTPUT_PORT_TYPE
+Out0[2] <= WideOr4.DB_MAX_OUTPUT_PORT_TYPE
+Out0[3] <= WideOr3.DB_MAX_OUTPUT_PORT_TYPE
+Out0[4] <= WideOr2.DB_MAX_OUTPUT_PORT_TYPE
+Out0[5] <= WideOr1.DB_MAX_OUTPUT_PORT_TYPE
+Out0[6] <= WideOr0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|chip_checker|HexDriver:CHex2
+In0[0] => Decoder0.IN3
+In0[1] => Decoder0.IN2
+In0[2] => Decoder0.IN1
+In0[3] => Decoder0.IN0
+Out0[0] <= WideOr6.DB_MAX_OUTPUT_PORT_TYPE
+Out0[1] <= WideOr5.DB_MAX_OUTPUT_PORT_TYPE
+Out0[2] <= WideOr4.DB_MAX_OUTPUT_PORT_TYPE
+Out0[3] <= WideOr3.DB_MAX_OUTPUT_PORT_TYPE
+Out0[4] <= WideOr2.DB_MAX_OUTPUT_PORT_TYPE
+Out0[5] <= WideOr1.DB_MAX_OUTPUT_PORT_TYPE
+Out0[6] <= WideOr0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|chip_checker|HexDriver:CHex3
+In0[0] => Decoder0.IN3
+In0[1] => Decoder0.IN2
+In0[2] => Decoder0.IN1
+In0[3] => Decoder0.IN0
+Out0[0] <= WideOr6.DB_MAX_OUTPUT_PORT_TYPE
+Out0[1] <= WideOr5.DB_MAX_OUTPUT_PORT_TYPE
+Out0[2] <= WideOr4.DB_MAX_OUTPUT_PORT_TYPE
+Out0[3] <= WideOr3.DB_MAX_OUTPUT_PORT_TYPE
+Out0[4] <= WideOr2.DB_MAX_OUTPUT_PORT_TYPE
+Out0[5] <= WideOr1.DB_MAX_OUTPUT_PORT_TYPE
+Out0[6] <= WideOr0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|chip_checker|chip_checker_state:chip_checker_state0
+Clk => State~1.DATAIN
+Reset => State.OUTPUTSELECT
+Reset => State.OUTPUTSELECT
+Reset => State.OUTPUTSELECT
+Reset => State.OUTPUTSELECT
+Reset => State.OUTPUTSELECT
+Reset => State.OUTPUTSELECT
+Run => Next_state.OUTPUTSELECT
+Run => Next_state.OUTPUTSELECT
+Run => Next_state.OUTPUTSELECT
+Run => Next_state.OUTPUTSELECT
+Run => Next_state.OUTPUTSELECT
+Run => Next_state.OUTPUTSELECT
+Run => Selector0.IN3
+Run => Selector0.IN4
+Run => Selector1.IN2
+Run => Selector4.IN3
+Check_Done => Selector3.IN3
+Check_Done => Selector2.IN3
+LD_SW <= WideOr5.DB_MAX_OUTPUT_PORT_TYPE
+Start_Check <= Start_Check.DB_MAX_OUTPUT_PORT_TYPE
+LD_RSLT <= LD_RSLT.DB_MAX_OUTPUT_PORT_TYPE
+DISP_RSLT <= DISP_RSLT.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|chip_checker|chip_7402:chip_7402_0
+Clk => RSLT~reg0.CLK
+Clk => inputs[0].CLK
+Clk => inputs[1].CLK
+Clk => State~1.DATAIN
+Reset => State.OUTPUTSELECT
+Reset => State.OUTPUTSELECT
+Reset => State.OUTPUTSELECT
+Reset => State.OUTPUTSELECT
+Reset => inputs.OUTPUTSELECT
+Reset => inputs.OUTPUTSELECT
+Reset => RSLT~reg0.ENA
+Run => Next_state.OUTPUTSELECT
+Run => Next_state.OUTPUTSELECT
+Run => Next_state.OUTPUTSELECT
+Run => Next_state.OUTPUTSELECT
+Pin13 => always1.IN1
+Pin12 <= Pin12$latch.DB_MAX_OUTPUT_PORT_TYPE
+Pin11 <= Pin11$latch.DB_MAX_OUTPUT_PORT_TYPE
+Pin10 => always1.IN1
+Pin9 <= Pin9$latch.DB_MAX_OUTPUT_PORT_TYPE
+Pin8 <= Pin8$latch.DB_MAX_OUTPUT_PORT_TYPE
+Pin6 <= Pin6$latch.DB_MAX_OUTPUT_PORT_TYPE
+Pin5 <= Pin5$latch.DB_MAX_OUTPUT_PORT_TYPE
+Pin4 => always1.IN1
+Pin3 <= Pin3$latch.DB_MAX_OUTPUT_PORT_TYPE
+Pin2 <= Pin2$latch.DB_MAX_OUTPUT_PORT_TYPE
+Pin1 => always1.IN1
+Done <= Done.DB_MAX_OUTPUT_PORT_TYPE
+RSLT <= RSLT~reg0.DB_MAX_OUTPUT_PORT_TYPE
+DISP_RSLT => Selector0.IN3
+DISP_RSLT => Selector3.IN3
+
+
