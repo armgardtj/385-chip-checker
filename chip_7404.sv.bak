@@ -101,6 +101,19 @@ always_latch
 				Pin12 = B;
 				if (Pin13 != Y)
 					RSLT_Save = 0;
+				/*
+				foreach (APins[i]) begin
+					APins[i] = A;
+				end
+				foreach (BPins[i]) begin
+					BPins[i] = B;
+				end
+				
+				foreach (YPins[i]) begin
+					if (YPins[i] != outputs)
+						RSLT_Save = 0;
+				end
+				*/
 			end
 			Done_s :
 			begin
