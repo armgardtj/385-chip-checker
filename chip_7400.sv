@@ -1,4 +1,4 @@
-module chip_Quad_2_input_NAND( input logic Clk, 
+module chip_7400( input logic Clk, 
 									input logic Reset,
 									input logic Run,
 									output logic Pin13,
@@ -20,66 +20,60 @@ module chip_Quad_2_input_NAND( input logic Clk,
 									
 enum logic [5:0] { Halted,
 						Set, 
-						LowLow,
-						LowHigh, 
-						HighLow, 	
-						HighHigh,
+						Test,
 						Done_s}   State, Next_state;   // Internal state logic
 
 
+reg [1:0] inputs;
+
 logic RSLT_Save;
+const int max_states = 3;
 
 always_ff @ (posedge Clk)
 begin
 	if (Reset)
 	begin
 		State <= Halted;
+		inputs = 0;
 	end
 	else 
 	begin
 		State <= Next_state;
 		RSLT = RSLT_Save; 
 	end
+	
+	if (State == Test)
+		inputs++;
 end
 
-always_comb
+always_latch
 	begin 
 		// Default next state is staying at current state
+		reg A, B, Y;
 		Next_state = State;
 		Done = 0;
 		RSLT_Save = RSLT;
-		Pin13  = 0;
-		Pin12  = 0;
 		// Assign next state
 		unique case (State)
 			Halted : 
+			begin
 				if (Run) 
 					Next_state = Set;
-			Set: Next_state = LowLow;
-			LowLow : 
-				begin
-					Next_state = LowHigh;
-				end
-			LowHigh : 
-				begin
-					Next_state = HighLow;
-				end
-			HighLow : 
-				begin
-					Next_state = HighHigh;
-				end
-			HighHigh : 
-				begin
+			end
+			Set: Next_state = Test;
+			Test:
+			begin
+				if (inputs == max_states)
 					Next_state = Done_s;
-				end
+			end
 			Done_s : 
-				begin
+			begin
 				if(DISP_RSLT)
 					Next_state = Halted;
 				else
 					Next_state = Done_s;
-				end
-			endcase
+			end
+		endcase
 			
 		unique case (State)
 			Halted : ;
@@ -87,41 +81,27 @@ always_comb
 			begin
 				RSLT_Save = 1;
 			end                     
-			LowLow : 
+			Test :
 			begin
-				Pin13  = 0;
-				Pin12  = 0;
-				if(Pin11 != 1)
-				begin
+				A = inputs[1];
+				B = inputs[0];
+				Y = ~&inputs;
+				Pin1 = A;
+				Pin2 = B;
+				if (Pin3 != Y)
 					RSLT_Save = 0;
-				end
-			end
-			LowHigh :
-			begin
-				Pin13  = 0;
-				Pin12  = 1;
-				if(Pin11 != 1)
-				begin
+				Pin4 = A;
+				Pin5 = B;
+				if (Pin6 != Y)
 					RSLT_Save = 0;
-				end
-			end
-			HighLow :
-			begin
-				Pin13  = 1;
-				Pin12  = 0;
-				if(Pin11 != 1)
-				begin
+				Pin10 = A;
+				Pin9 = B;
+				if (Pin8 != Y)
 					RSLT_Save = 0;
-				end
-			end
-			HighHigh : 
-			begin
-				Pin13  = 1;
-				Pin12  = 1;
-				if(Pin11 != 0)
-				begin
+				Pin13 = A;
+				Pin12 = B;
+				if (Pin11 != Y)
 					RSLT_Save = 0;
-				end
 			end
 			Done_s :
 			begin

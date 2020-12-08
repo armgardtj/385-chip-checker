@@ -21,6 +21,7 @@ logic io11;
 logic io10;
 logic io9;
 logic io8;
+logic io7;
 logic io6;
 logic io5;
 logic io4;
@@ -34,6 +35,7 @@ logic TPin11;
 logic TPin10;
 logic TPin9;
 logic TPin8;
+logic TPin7;
 logic TPin6;
 logic TPin5;
 logic TPin4;
@@ -47,6 +49,7 @@ assign Pin11 = io11 ? TPin11 : 8'bZ ;
 assign Pin10 = io10 ? TPin10 : 8'bZ ;
 assign Pin9 = io9 ? TPin9 : 8'bZ ;
 assign Pin8 = io8 ? TPin8 : 8'bZ ;
+assign Pin7 = io7 ? TPin7 : 8'bZ ;
 assign Pin6 = io6 ? TPin6 : 8'bZ ;
 assign Pin5 = io5 ? TPin5 : 8'bZ ;
 assign Pin4 = io4 ? TPin4 : 8'bZ ;
@@ -79,13 +82,15 @@ logic DISP_RSLT;
 
 logic [5:0]Pin13_agg;
 logic [5:0]Pin12_agg;
-
+logic [5:0]Pin11_agg;
 logic [5:0]Pin10_agg;
 logic [5:0]Pin9_agg;
-
+logic [5:0]Pin8_agg;
+logic [5:0]Pin7_agg;
+logic [5:0]Pin6_agg;
 logic [5:0]Pin5_agg;
 logic [5:0]Pin4_agg;
-
+logic [5:0]Pin3_agg;
 logic [5:0]Pin2_agg;
 logic [5:0]Pin1_agg;
 
@@ -126,22 +131,29 @@ begin
 	
 	io13 = 1;
 	io12 = 1;
+	io11 = 1;
 	io10 = 1;
 	io9 = 1;
+	io8 = 1;
+	io7 = 1;
+	io6 = 1;
 	io5 = 1;
 	io4 = 1;
+	io3 = 1;
 	io2 = 1;
 	io1 = 1;
 	
 	TPin13 = Pin13_agg[selection];
 	TPin12 = Pin12_agg[selection];	
-	
+	TPin11 = Pin11_agg[selection];
 	TPin10 = Pin10_agg[selection];
 	TPin9 = Pin9_agg[selection];		
-
+	TPin8 = Pin8_agg[selection];
+	TPin7 = Pin7_agg[selection];
+	TPin6 = Pin6_agg[selection];
 	TPin5 = Pin5_agg[selection];
 	TPin4 = Pin4_agg[selection];		
-
+	TPin3 = Pin3_agg[selection];
 	TPin2 = Pin2_agg[selection];
 	TPin1 = Pin1_agg[selection];	
 	
@@ -218,7 +230,8 @@ end
 
 chip_checker_state chip_checker_state0(.Clk(Clk), .Reset(Reset_h), .Run(Run_h), .LD_SW(LD_SW), .LD_RSLT(LD_RSLT), .Check_Done(Check_Done), .Start_Check(Start_Check), .DISP_RSLT(DISP_RSLT));
 
-chip_7402 chip_7402_0(.DISP_RSLT(DISP_RSLT), .Clk(Clk), .Reset(Reset_h), .Run(Start_Check), .Done(done[0]), .RSLT(RSLT_0), .Pin13(Pin13_agg[1]), .Pin12(Pin12_agg[1]), .Pin11(Pin11), .Pin10(Pin10_agg[1]), .Pin9(Pin9_agg[1]), .Pin8(Pin8), .Pin6(Pin6), .Pin5(Pin5_agg[1]), .Pin4(Pin4_agg[1]), .Pin3(Pin3), .Pin2(Pin2_agg[1]), .Pin1(Pin1_agg[1]));		
-//chip_Quad_2_input_NOR chip_Quad_2_input_NOR0(.Clk(Clk), .Reset(Reset_h), .Run(Start_Check), .Done(done[1]), .RSLT(RSLT_1), .Pin13(Pin13), .Pin12(Pin12), .Pin11(Pin11), .Pin10(Pin10), .Pin9(Pin9), .Pin8(Pin8), .Pin6(Pin6), .Pin5(Pin5), .Pin4(Pin4), .Pin3(Pin3), .Pin2(Pin2), .Pin1(Pin1));		
+
+//chip_7400 chip_7400_0(.DISP_RSLT(DISP_RSLT), .Clk(Clk), .Reset(Reset_h), .Run(Start_Check), .Done(done[0]), .RSLT(RSLT_0), .Pin13(Pin13_agg[1]), .Pin12(Pin12_agg[1]), .Pin11(Pin11), .Pin10(Pin10_agg[1]), .Pin9(Pin9_agg[1]), .Pin8(Pin8), .Pin6(Pin6), .Pin5(Pin5_agg[1]), .Pin4(Pin4_agg[1]), .Pin3(Pin3), .Pin2(Pin2_agg[1]), .Pin1(Pin1_agg[1]));		
+chip_7402 chip_7402_0(.DISP_RSLT(DISP_RSLT), .Clk(Clk), .Reset(Reset_h), .Run(Start_Check), .Done(done[0]), .RSLT(RSLT_0), .Pin13(Pin13), .Pin12(Pin12_agg[1]), .Pin11(Pin11_agg[1]), .Pin10(Pin10), .Pin9(Pin9_agg[1]), .Pin8(Pin8_agg[1]), .Pin6(Pin6_agg[1]), .Pin5(Pin5_agg[1]), .Pin4(Pin4), .Pin3(Pin3_agg[1]), .Pin2(Pin2_agg[1]), .Pin1(Pin1));		
 						
 endmodule

@@ -1,4 +1,4 @@
-module chip_7402( input logic Clk, 
+module chip_7404( input logic Clk, 
 						input logic Reset,
 						input logic Run,
 						output logic Pin13,
