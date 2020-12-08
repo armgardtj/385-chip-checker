@@ -1,20 +1,59 @@
 module chip_checker(	input logic [9:0] SW,
 	input logic	Clk, Reset, Run,
 	output logic [6:0] HEX0, HEX1, HEX2, HEX3, HEX4, HEX5,
-	output logic Pin13,
-	output logic Pin12,
-	input logic Pin11,
-	output logic Pin10,
-	output logic Pin9,
-	input logic Pin8,
-	input logic Pin6,
-	output logic Pin5,
-	output logic Pin4,
-	input logic Pin3,
-	output logic Pin2,
-	output logic Pin1
+	inout logic Pin13,
+	inout logic Pin12,
+	inout logic Pin11,
+	inout logic Pin10,
+	inout logic Pin9,
+	inout logic Pin8,
+	inout logic Pin6,
+	inout logic Pin5,
+	inout logic Pin4,
+	inout logic Pin3,
+	inout logic Pin2,
+	inout logic Pin1
 	);
+	
+logic io13;
+logic io12;
+logic io11;
+logic io10;
+logic io9;
+logic io8;
+logic io6;
+logic io5;
+logic io4;
+logic io3;
+logic io2;
+logic io1;
 
+logic TPin13;
+logic TPin12;
+logic TPin11;
+logic TPin10;
+logic TPin9;
+logic TPin8;
+logic TPin6;
+logic TPin5;
+logic TPin4;
+logic TPin3;
+logic TPin2;
+logic TPin1;
+
+assign Pin13 = io13 ? TPin13 : 8'bZ ;
+assign Pin12 = io12 ? TPin12 : 8'bZ ;
+assign Pin11 = io11 ? TPin11 : 8'bZ ;
+assign Pin10 = io10 ? TPin10 : 8'bZ ;
+assign Pin9 = io9 ? TPin9 : 8'bZ ;
+assign Pin8 = io8 ? TPin8 : 8'bZ ;
+assign Pin6 = io6 ? TPin6 : 8'bZ ;
+assign Pin5 = io5 ? TPin5 : 8'bZ ;
+assign Pin4 = io4 ? TPin4 : 8'bZ ;
+assign Pin3 = io3 ? TPin3 : 8'bZ ;
+assign Pin2 = io2 ? TPin2 : 8'bZ ;
+assign Pin1 = io1 ? TPin1 : 8'bZ ;
+	
 logic LD_SW;
 logic LD_RSLT;
 logic RSLT;
@@ -27,6 +66,9 @@ logic [3:0] hex3in;
 logic Check_Done;
 logic Reset_h;
 logic Run_h;
+
+
+
 
 logic Start_Check;
 
@@ -82,17 +124,26 @@ begin
 
 	selection = SW;
 	
-	Pin13 = Pin13_agg[selection];
-	Pin12 = Pin12_agg[selection];	
+	io13 = 1;
+	io12 = 1;
+	io10 = 1;
+	io9 = 1;
+	io5 = 1;
+	io4 = 1;
+	io2 = 1;
+	io1 = 1;
 	
-	Pin10 = Pin10_agg[selection];
-	Pin9 = Pin9_agg[selection];		
+	TPin13 = Pin13_agg[selection];
+	TPin12 = Pin12_agg[selection];	
+	
+	TPin10 = Pin10_agg[selection];
+	TPin9 = Pin9_agg[selection];		
 
-	Pin5 = Pin5_agg[selection];
-	Pin4 = Pin4_agg[selection];		
+	TPin5 = Pin5_agg[selection];
+	TPin4 = Pin4_agg[selection];		
 
-	Pin2 = Pin2_agg[selection];
-	Pin1 = Pin1_agg[selection];	
+	TPin2 = Pin2_agg[selection];
+	TPin1 = Pin1_agg[selection];	
 	
 	if(LD_SW)
 	begin

@@ -10,18 +10,37 @@ logic [9:0] SW;
 logic Run = 1;
 logic Reset = 1;
 logic [6:0] HEX0, HEX1, HEX2, HEX3, HEX4, HEX5;
-logic Pin13;
-logic Pin12;
-logic Pin11;
-logic Pin10;
-logic Pin9;
-logic Pin8;
-logic Pin6;
-logic Pin5;
-logic Pin4;
-logic Pin3;
-logic Pin2;
-logic Pin1;				
+
+logic io13;
+
+wire Pin13;
+wire Pin12;
+wire Pin11;
+wire Pin10;
+wire Pin9;
+wire Pin8;
+wire Pin6;
+wire Pin5;
+wire Pin4;
+wire Pin3;
+wire Pin2;
+wire Pin1;
+
+logic Pin13D;
+logic Pin12D;
+logic Pin11D;
+logic Pin10D;
+logic Pin9D;
+logic Pin8D;
+logic Pin6D;
+logic Pin5D;
+logic Pin4D;
+logic Pin3D;
+logic Pin2D;
+logic Pin1D;
+
+//assign Pin13 = io13 ? Pin13D : 8'bZ ;
+
 // A counter to count the instances where simulation results
 // do no match with expected results
 integer ErrorCnt = 0;
