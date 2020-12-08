@@ -12,6 +12,7 @@ logic Reset = 1;
 logic [6:0] HEX0, HEX1, HEX2, HEX3, HEX4, HEX5;
 
 logic io13;
+logic io1 = 1;
 
 wire Pin13;
 wire Pin12;
@@ -25,7 +26,7 @@ wire Pin4;
 wire Pin3;
 wire Pin2;
 wire Pin1;
-
+wire Pin15;
 logic Pin13D;
 logic Pin12D;
 logic Pin11D;
@@ -39,7 +40,7 @@ logic Pin3D;
 logic Pin2D;
 logic Pin1D;
 
-//assign Pin13 = io13 ? Pin13D : 8'bZ ;
+assign Pin1 = io1 ? Pin1D : 8'bZ ;
 
 // A counter to count the instances where simulation results
 // do no match with expected results
@@ -68,7 +69,7 @@ initial begin: TEST_VECTORS
 SW = 8'h01;
 Run = 1;
 Reset = 1;
-
+Pin1D = 1;
 #2;
 Reset = 0;
 #2;

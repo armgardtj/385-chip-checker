@@ -29,13 +29,14 @@ logic io3;
 logic io2;
 logic io1;
 
+logic [15:0] io;
+
 logic TPin13;
 logic TPin12;
 logic TPin11;
 logic TPin10;
 logic TPin9;
 logic TPin8;
-logic TPin7;
 logic TPin6;
 logic TPin5;
 logic TPin4;
@@ -43,19 +44,18 @@ logic TPin3;
 logic TPin2;
 logic TPin1;
 
-assign Pin13 = io13 ? TPin13 : 8'bZ ;
-assign Pin12 = io12 ? TPin12 : 8'bZ ;
-assign Pin11 = io11 ? TPin11 : 8'bZ ;
-assign Pin10 = io10 ? TPin10 : 8'bZ ;
-assign Pin9 = io9 ? TPin9 : 8'bZ ;
-assign Pin8 = io8 ? TPin8 : 8'bZ ;
-assign Pin7 = io7 ? TPin7 : 8'bZ ;
-assign Pin6 = io6 ? TPin6 : 8'bZ ;
-assign Pin5 = io5 ? TPin5 : 8'bZ ;
-assign Pin4 = io4 ? TPin4 : 8'bZ ;
-assign Pin3 = io3 ? TPin3 : 8'bZ ;
-assign Pin2 = io2 ? TPin2 : 8'bZ ;
-assign Pin1 = io1 ? TPin1 : 8'bZ ;
+assign Pin13 = io[13] ? TPin13 : 8'bZ ;
+assign Pin12 = io[12] ? TPin12 : 8'bZ ;
+assign Pin11 = io[11] ? TPin11 : 8'bZ ;
+assign Pin10 = io[10] ? TPin10 : 8'bZ ;
+assign Pin9 = io[9] ? TPin9 : 8'bZ ;
+assign Pin8 = io[8] ? TPin8 : 8'bZ ;
+assign Pin6 = io[6] ? TPin6 : 8'bZ ;
+assign Pin5 = io[5] ? TPin5 : 8'bZ ;
+assign Pin4 = io[4] ? TPin4 : 8'bZ ;
+assign Pin3 = io[3] ? TPin3 : 8'bZ ;
+assign Pin2 = io[2] ? TPin2 : 8'bZ ;
+assign Pin1 = io[1] ? TPin1 : 8'bZ ;
 	
 logic LD_SW;
 logic LD_RSLT;
@@ -127,21 +127,44 @@ end
 always_comb
 begin
 
-	selection = SW;
+	unique case (selection)
+		1 : 
+		begin
+		
+			io[15] = 0;
+			io[14] = 0;
+			io[13] = 1;
+			io[12] = 1;
+			io[11] = 1;
+			io[10] = 1;
+			io[9] = 1;
+			io[8] = 1;
+			io[7] = 0;
+			io[6] = 1;
+			io[5] = 1;
+			io[4] = 1;
+			io[3] = 1;
+			io[2] = 1;
+			io[1] = 0;
+			io[0] = 1;
+		end
+		2 : 
+		begin
+			io[15:0] = 0;
+		end
+		default :
+		begin
+			io[15:0] = 0;
+		end
+	endcase
 	
-	io13 = 1;
-	io12 = 1;
-	io11 = 1;
-	io10 = 1;
-	io9 = 1;
-	io8 = 1;
-	io7 = 1;
-	io6 = 1;
-	io5 = 1;
-	io4 = 1;
-	io3 = 1;
-	io2 = 1;
-	io1 = 1;
+end
+
+always_comb
+begin
+
+	selection = SW;
+
 	
 	TPin13 = Pin13_agg[selection];
 	TPin12 = Pin12_agg[selection];	
@@ -149,7 +172,6 @@ begin
 	TPin10 = Pin10_agg[selection];
 	TPin9 = Pin9_agg[selection];		
 	TPin8 = Pin8_agg[selection];
-	TPin7 = Pin7_agg[selection];
 	TPin6 = Pin6_agg[selection];
 	TPin5 = Pin5_agg[selection];
 	TPin4 = Pin4_agg[selection];		
@@ -232,6 +254,6 @@ chip_checker_state chip_checker_state0(.Clk(Clk), .Reset(Reset_h), .Run(Run_h), 
 
 
 //chip_7400 chip_7400_0(.DISP_RSLT(DISP_RSLT), .Clk(Clk), .Reset(Reset_h), .Run(Start_Check), .Done(done[0]), .RSLT(RSLT_0), .Pin13(Pin13_agg[1]), .Pin12(Pin12_agg[1]), .Pin11(Pin11), .Pin10(Pin10_agg[1]), .Pin9(Pin9_agg[1]), .Pin8(Pin8), .Pin6(Pin6), .Pin5(Pin5_agg[1]), .Pin4(Pin4_agg[1]), .Pin3(Pin3), .Pin2(Pin2_agg[1]), .Pin1(Pin1_agg[1]));		
-chip_7402 chip_7402_0(.DISP_RSLT(DISP_RSLT), .Clk(Clk), .Reset(Reset_h), .Run(Start_Check), .Done(done[0]), .RSLT(RSLT_0), .Pin13(Pin13), .Pin12(Pin12_agg[1]), .Pin11(Pin11_agg[1]), .Pin10(Pin10), .Pin9(Pin9_agg[1]), .Pin8(Pin8_agg[1]), .Pin6(Pin6_agg[1]), .Pin5(Pin5_agg[1]), .Pin4(Pin4), .Pin3(Pin3_agg[1]), .Pin2(Pin2_agg[1]), .Pin1(Pin1));		
+chip_7402 chip_7402_0(.DISP_RSLT(DISP_RSLT), .Clk(Clk), .Reset(Reset_h), .Run(Start_Check), .Done(done[0]), .RSLT(RSLT_0), .Pin13(Pin13_agg[1]), .Pin12(Pin12_agg[1]), .Pin11(Pin11_agg[1]), .Pin10(Pin10_agg[1]), .Pin9(Pin9_agg[1]), .Pin8(Pin8_agg[1]), .Pin6(Pin6_agg[1]), .Pin5(Pin5_agg[1]), .Pin4(Pin4_agg[1]), .Pin3(Pin3_agg[1]), .Pin2(Pin2_agg[1]), .Pin1(Pin1_agg[1]));		
 						
 endmodule
