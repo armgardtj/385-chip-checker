@@ -46,25 +46,38 @@ begin
 		inputs++;
 end
 
-always_latch
+always_comb
 	begin 
 		// Default next state is staying at current state
 		reg A, B, Y;
 		Next_state = State;
 		Done = 0;
 		RSLT_Save = RSLT;
+		Pin1 = 0;
+		Pin2 = 0;
+		Pin4 = 0;
+		Pin5 = 0;
+		Pin10 = 0;
+		Pin9 = 0;
+		Pin13 = 0;
+		Pin12 = 0
+		;
 		// Assign next state
 		unique case (State)
 			Halted : 
 			begin
 				if (Run) 
 					Next_state = Set;
+				else
+					Next_state = Halted;
 			end
 			Set: Next_state = Test;
 			Test:
 			begin
 				if (inputs == max_states)
 					Next_state = Done_s;
+				else
+					Next_state = Test;
 			end
 			Done_s : 
 			begin
@@ -80,7 +93,7 @@ always_latch
 			Set :
 			begin
 				RSLT_Save = 1;
-			end                     
+			end   
 			Test :
 			begin
 				A = inputs[1];
@@ -107,6 +120,7 @@ always_latch
 			begin
 				Done = 1;
 			end
+			
 			endcase
 			
 			//
