@@ -17,20 +17,6 @@ module chip_checker(	input logic [9:0] SW,
 	inout logic Pin1
 	);
 	
-logic io13;
-logic io12;
-logic io11;
-logic io10;
-logic io9;
-logic io8;
-logic io7;
-logic io6;
-logic io5;
-logic io4;
-logic io3;
-logic io2;
-logic io1;
-
 logic [15:0] io;
 
 logic TPin13;
@@ -72,7 +58,10 @@ logic [3:0] hex4in;
 logic Check_Done;
 logic Reset_h;
 logic Run_h;
-
+logic nand_clk;
+logic [63:0] nand_ctr;
+logic [1:0] input_o;
+logic [1:0] state_o;
 
 
 
@@ -118,7 +107,7 @@ HexDriver		CHex2 (
 						.Out0(HEX4) );
 						
 HexDriver		CHex3 (
-						.In0(),
+						.In0(hex5in),
 						.Out0(HEX5) );
 
 always_comb
@@ -138,17 +127,17 @@ begin
 			io[14] = 0;
 			io[13] = 1;
 			io[12] = 1;
-			io[11] = 1;
+			io[11] = 0;
 			io[10] = 1;
 			io[9] = 1;
-			io[8] = 1;
+			io[8] = 0;
 			io[7] = 0;
-			io[6] = 1;
+			io[6] = 0;
 			io[5] = 1;
 			io[4] = 1;
-			io[3] = 1;
+			io[3] = 0;
 			io[2] = 1;
-			io[1] = 0;
+			io[1] = 1;
 			io[0] = 1;
 		end
 		2 : 
@@ -186,46 +175,52 @@ begin
 	begin
 		
 		hex0in = SW[3:0];
-		hex1in = SW[7:4];
-		hex2in = 0;
-		hex3in = 0;
+		//hex1in = SW[7:4];
+		//hex2in = 0;
+		//hex3in = 0;
 	end
 	else if(DISP_RSLT)
 	begin
 		if(RSLT)
 		begin
-		hex0in = 8'h11;
-		hex1in = 8'h11;
-		hex2in = 8'h11;
-		hex3in = 8'h11;
+		hex0in = 8'hAA;
+		//hex1in = 8'h11;
+		//hex2in = 8'h11;
+		//hex3in = 8'h11;
 		end
 		else
 		begin
 		hex0in = 8'hFF;
-		hex1in = 8'hFF;
-		hex2in = 8'hFF;
-		hex3in = 8'hFF;		
+		//hex1in = 8'hFF;
+		//hex2in = 8'hFF;
+		//hex3in = 8'hFF;		
 		end
 	end
 	else
 	begin
 		hex0in = 0;
-		hex1in = 0;
-		hex2in = 0;
-		hex3in = 0;	
+		//hex1in = 0;
+
 	end
 end
-/*
+
 always_comb
 begin
-	io[2] = 1;
-	io[3] = 0;
-	TPin2 = 1;
-	hex4in = Pin3;
+	hex1in = state_o[1:0];
+	hex2in = input_o[1:0];
+	hex3in = Pin11;
+	hex4in = RSLT_0;	
+	hex5in = nand_clk;
+	
 end
-*/
+
 always_ff @ (posedge Clk)
 begin
+	nand_ctr++;
+	if (nand_ctr % 50000000 == 0)
+		nand_clk = ~nand_clk;
+	if (Reset_h)
+		nand_ctr = 0;
 	if(LD_RSLT)
 	begin
 		unique case (selection)
@@ -264,7 +259,7 @@ end
 chip_checker_state chip_checker_state0(.Clk(Clk), .Reset(Reset_h), .Run(Run_h), .LD_SW(LD_SW), .LD_RSLT(LD_RSLT), .Check_Done(Check_Done), .Start_Check(Start_Check), .DISP_RSLT(DISP_RSLT));
 
 
-chip_7400 chip_7400_0(.DISP_RSLT(DISP_RSLT), .Clk(Clk), .Reset(Reset_h), .Run(Start_Check), .Done(done[0]), .RSLT(RSLT_0), .Pin13(Pin13_agg[1]), .Pin12(Pin12_agg[1]), .Pin11(Pin11_agg[1]), .Pin10(Pin10_agg[1]), .Pin9(Pin9_agg[1]), .Pin8(Pin8_agg[1]), .Pin6(Pin6_agg[1]), .Pin5(Pin5_agg[1]), .Pin4(Pin4_agg[1]), .Pin3(Pin3_agg[1]), .Pin2(Pin2_agg[1]), .Pin1(Pin1_agg[1]));		
+chip_7400 chip_7400_0(.DISP_RSLT(DISP_RSLT), .Clk(Clk), .Reset(Reset_h), .Run(Start_Check), .Done(done[0]), .RSLT(RSLT_0), .Pin13(Pin13_agg[1]), .Pin12(Pin12_agg[1]), .Pin11(Pin11), .Pin10(Pin10_agg[1]), .Pin9(Pin9_agg[1]), .Pin8(Pin8), .Pin6(Pin6), .Pin5(Pin5_agg[1]), .Pin4(Pin4_agg[1]), .Pin3(Pin3), .Pin2(Pin2_agg[1]), .Pin1(Pin1_agg[1]), .input_o(input_o), .state_o(state_o));		
 //chip_7402 chip_7402_0(.DISP_RSLT(DISP_RSLT), .Clk(Clk), .Reset(Reset_h), .Run(Start_Check), .Done(done[0]), .RSLT(RSLT_0), .Pin13(Pin13_agg[1]), .Pin12(Pin12_agg[1]), .Pin11(Pin11_agg[1]), .Pin10(Pin10_agg[1]), .Pin9(Pin9_agg[1]), .Pin8(Pin8_agg[1]), .Pin6(Pin6_agg[1]), .Pin5(Pin5_agg[1]), .Pin4(Pin4_agg[1]), .Pin3(Pin3_agg[1]), .Pin2(Pin2_agg[1]), .Pin1(Pin1_agg[1]));		
 						
 endmodule
