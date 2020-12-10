@@ -26,6 +26,7 @@ enum logic [1:0] { Halted,
 
 logic [2:0] inputs;
 logic RSLT_Save;
+logic A, B, C, Y;
 
 always_ff @ (posedge Clk)
 begin
@@ -46,12 +47,47 @@ begin
 end
 
 always_comb
+begin
+	// Assign next state
+	Done = 0;
+	Next_state = State;
+	A = inputs[0];
+	B = inputs[1];
+	C = inputs[2];
+	Y = ~&inputs;
+	unique case (State)
+		Halted : 
+		begin
+			if (Run) 
+				Next_state = Set;
+			else
+				Next_state = Halted;
+		end
+		Set: Next_state = Test;
+		Test:
+		begin
+			if (inputs == 3'b111)
+			begin
+				Next_state = Done_s;
+				Done = 1;
+			end
+			else
+				Next_state = Test;
+		end
+		Done_s : 
+		begin
+			Done = 1;
+			if(DISP_RSLT)
+				Next_state = Halted;
+			else
+				Next_state = Done_s;
+		end
+	endcase
+end
+
+always @ (A or B or C)
 	begin 
-		// Default next state is staying at current state
-		logic A, B, C, Y;
-		Next_state = State;
-		Done = 0;
-		RSLT_Save = RSLT;
+		// Default next state is staying at current state		
 		Pin1 = 0;
 		Pin2 = 0;
 		Pin3 = 0;
@@ -61,35 +97,9 @@ always_comb
 		Pin10 = 0;
 		Pin11 = 0;
 		Pin13 = 0;
-		// Assign next state
-		unique case (State)
-			Halted : 
-			begin
-				if (Run) 
-					Next_state = Set;
-				else
-					Next_state = Halted;
-			end
-			Set: Next_state = Test;
-			Test:
-			begin
-				if (inputs == 3'b111)
-				begin
-					Next_state = Done_s;
-					Done = 1;
-				end
-				else
-					Next_state = Test;
-			end
-			Done_s : 
-			begin
-				if(DISP_RSLT)
-					Next_state = Halted;
-				else
-					Next_state = Done_s;
-			end
-		endcase
-			
+		
+		RSLT_Save = RSLT;
+		
 		unique case (State)
 			Halted : ;
 			Set :
@@ -98,10 +108,6 @@ always_comb
 			end   
 			Test :
 			begin
-				A = inputs[0];
-				B = inputs[1];
-				C = inputs[2];
-				Y = ~&inputs;
 				Pin1 = A;
 				Pin2 = B;
 				Pin13 = C;
@@ -118,10 +124,7 @@ always_comb
 				if (Pin8 != Y)
 					RSLT_Save = 0;
 			end
-			Done_s :
-			begin
-				Done = 1;
-			end
+			Done_s : ;
 			endcase
 		end
 		

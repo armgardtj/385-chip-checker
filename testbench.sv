@@ -14,6 +14,8 @@ logic [6:0] HEX0, HEX1, HEX2, HEX3, HEX4, HEX5;
 logic io13;
 logic io1 = 1;
 
+wire Pin16;
+wire Pin15;
 wire Pin14;
 wire Pin13;
 wire Pin12;
@@ -28,7 +30,9 @@ wire Pin4;
 wire Pin3;
 wire Pin2;
 wire Pin1;
-wire Pin15;
+
+logic Pin16D;
+logic Pin15D;
 logic Pin14D;
 logic Pin13D;
 logic Pin12D;

@@ -13,6 +13,8 @@ module chip_7420( input logic Clk,
 						output logic Pin1,
 						output logic Done,
 						output logic RSLT,
+						output logic [1:0] state_o,
+						output logic [3:0] input_o,
 						input logic DISP_RSLT);
 
 									
@@ -24,7 +26,8 @@ enum logic [1:0] { Halted,
 
 logic [3:0] inputs;
 logic RSLT_Save;
-
+logic A, B, C, D, Y;
+		
 always_ff @ (posedge Clk)
 begin
 	if (Reset)
@@ -44,12 +47,48 @@ begin
 end
 
 always_comb
+begin
+	// Assign next state
+	Done = 0;
+	Next_state = State;
+	A = inputs[0];
+	B = inputs[1];
+	C = inputs[2];
+	D = inputs[3];
+	Y = ~&inputs;
+	unique case (State)
+		Halted : 
+		begin
+			if (Run) 
+				Next_state = Set;
+			else
+				Next_state = Halted;
+		end
+		Set: Next_state = Test;
+		Test:
+		begin
+			if (inputs == 4'b1111)
+			begin
+				Next_state = Done_s;
+				Done = 1;
+			end
+			else
+				Next_state = Test;
+		end
+		Done_s : 
+		begin
+			Done = 1;
+			if(DISP_RSLT)
+				Next_state = Halted;
+			else
+				Next_state = Done_s;
+		end
+	endcase
+end
+
+always @ (A or B or C or D)
 	begin 
-		// Default next state is staying at current state
-		logic A, B, C, D, Y;
-		Next_state = State;
-		Done = 0;
-		RSLT_Save = RSLT;
+		// Default next state is staying at current state		
 		Pin1 = 0;
 		Pin2 = 0;
 		Pin4 = 0;
@@ -58,35 +97,10 @@ always_comb
 		Pin10 = 0;
 		Pin12 = 0;
 		Pin13 = 0;
-		// Assign next state
-		unique case (State)
-			Halted : 
-			begin
-				if (Run) 
-					Next_state = Set;
-				else
-					Next_state = Halted;
-			end
-			Set: Next_state = Test;
-			Test:
-			begin
-				if (inputs == 4'b1111)
-				begin
-					Next_state = Done_s;
-					Done = 1;
-				end
-				else
-					Next_state = Test;
-			end
-			Done_s : 
-			begin
-				if(DISP_RSLT)
-					Next_state = Halted;
-				else
-					Next_state = Done_s;
-			end
-		endcase
 			
+		RSLT_Save = RSLT;
+		state_o = State;
+		input_o = inputs;
 		unique case (State)
 			Halted : ;
 			Set :
@@ -95,11 +109,7 @@ always_comb
 			end   
 			Test :
 			begin
-				A = inputs[0];
-				B = inputs[1];
-				C = inputs[2];
-				D = inputs[3];
-				Y = ~&inputs;
+				
 				Pin1 = A;
 				Pin2 = B;
 				Pin4 = C;
@@ -113,10 +123,7 @@ always_comb
 				if (Pin8 != Y)
 					RSLT_Save = 0;
 			end
-			Done_s :
-			begin
-				Done = 1;
-			end
+			Done_s : ;
 			endcase
 		end
 		
