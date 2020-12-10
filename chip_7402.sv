@@ -15,25 +15,25 @@ module chip_7402( input logic Clk,
 						input logic Pin1,
 						output logic Done,
 						output logic RSLT,
+						//output logic [1:0] state_o,
+						//output logic [1:0] input_o,
 						input logic DISP_RSLT);
 
 									
-enum logic [3:0] { Halted,
+enum logic [1:0] { Halted,
 						Set, 
 						Test,
 						Done_s}   State, Next_state;   // Internal state logic
 
-reg [1:0] inputs;
 
+logic [1:0] inputs;
 logic RSLT_Save;
-const int max_states = 3;
 
 always_ff @ (posedge Clk)
 begin
 	if (Reset)
 	begin
 		State <= Halted;
-		inputs = 0;
 	end
 	else 
 	begin
@@ -41,29 +41,48 @@ begin
 		RSLT = RSLT_Save; 
 	end
 	
-	if (State == Test)
+	if (State == Set)
+		inputs = 0;
+	else if (State == Test)
 		inputs++;
 end
 
-always_latch
+always_comb
 	begin 
 		// Default next state is staying at current state
-		reg A, B, Y;
+		logic A, B, Y;
 		Next_state = State;
 		Done = 0;
 		RSLT_Save = RSLT;
+		Pin3 = 0;
+		Pin2 = 0;
+		Pin6 = 0;
+		Pin5 = 0;
+		Pin8 = 0;
+		Pin9 = 0;
+		Pin11 = 0;
+		Pin12 = 0;
+		//state_o = State;
+		//input_o = inputs;
 		// Assign next state
 		unique case (State)
 			Halted : 
 			begin
 				if (Run) 
 					Next_state = Set;
+				else
+					Next_state = Halted;
 			end
 			Set: Next_state = Test;
 			Test:
 			begin
-				if (inputs == max_states)
+				if (inputs == 2'b11)
+				begin
 					Next_state = Done_s;
+					Done = 1;
+				end
+				else
+					Next_state = Test;
 			end
 			Done_s : 
 			begin

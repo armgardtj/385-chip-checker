@@ -48,8 +48,6 @@ assign Pin1 = io[1] ? TPin1 : 8'bZ ;
 logic LD_SW;
 logic LD_RSLT;
 logic RSLT;
-logic RSLT_0;
-logic RSLT_1;
 logic [3:0] hex0in;
 logic [3:0] hex1in;
 logic [3:0] hex2in;
@@ -67,24 +65,24 @@ logic [1:0] state_o;
 
 logic Start_Check;
 
-logic [1:0] done;
-
-logic [9:0] selection;
+logic [18:0] done;
+logic [18:0] RSLT_O;
+logic [18:0] selection;
 logic DISP_RSLT;
 
-logic [5:0]Pin13_agg;
-logic [5:0]Pin12_agg;
-logic [5:0]Pin11_agg;
-logic [5:0]Pin10_agg;
-logic [5:0]Pin9_agg;
-logic [5:0]Pin8_agg;
-logic [5:0]Pin7_agg;
-logic [5:0]Pin6_agg;
-logic [5:0]Pin5_agg;
-logic [5:0]Pin4_agg;
-logic [5:0]Pin3_agg;
-logic [5:0]Pin2_agg;
-logic [5:0]Pin1_agg;
+logic [18:0]Pin13_agg;
+logic [18:0]Pin12_agg;
+logic [18:0]Pin11_agg;
+logic [18:0]Pin10_agg;
+logic [18:0]Pin9_agg;
+logic [18:0]Pin8_agg;
+logic [18:0]Pin7_agg;
+logic [18:0]Pin6_agg;
+logic [18:0]Pin5_agg;
+logic [18:0]Pin4_agg;
+logic [18:0]Pin3_agg;
+logic [18:0]Pin2_agg;
+logic [18:0]Pin1_agg;
 
 HexDriver		AHex0 (
 						.In0(hex0in),
@@ -122,7 +120,6 @@ begin
 	unique case (selection)
 		1 : 
 		begin
-		
 			io[15] = 0;
 			io[14] = 0;
 			io[13] = 1;
@@ -142,7 +139,41 @@ begin
 		end
 		2 : 
 		begin
-			io[15:0] = 0;
+			io[15] = 0;
+			io[14] = 0;
+			io[13] = 0;
+			io[12] = 1;
+			io[11] = 1;
+			io[10] = 0;
+			io[9] = 1;
+			io[8] = 1;
+			io[7] = 0;
+			io[6] = 1;
+			io[5] = 1;
+			io[4] = 0;
+			io[3] = 1;
+			io[2] = 1;
+			io[1] = 0;
+			io[0] = 1;
+		end
+		3 : 
+		begin
+			io[15] = 0;
+			io[14] = 0;
+			io[13] = 1;
+			io[12] = 0;
+			io[11] = 1;
+			io[10] = 0;
+			io[9] = 1;
+			io[8] = 0;
+			io[7] = 0;
+			io[6] = 0;
+			io[5] = 1;
+			io[4] = 0;
+			io[3] = 1;
+			io[2] = 0;
+			io[1] = 1;
+			io[0] = 1;
 		end
 		default :
 		begin
@@ -173,43 +204,50 @@ begin
 	
 	if(LD_SW)
 	begin
-		
-		hex0in = SW[3:0];
-		//hex1in = SW[7:4];
-		//hex2in = 0;
-		//hex3in = 0;
+		hex0in = 0;
+		hex1in = 0;
+		hex2in = SW[3:0];
+		hex3in = SW[7:4];
+	end
+	else if (LD_RSLT)
+	begin
+		hex0in = 0;
+		hex1in = 0;
+		hex2in = SW[3:0];
+		hex3in = SW[7:4];
 	end
 	else if(DISP_RSLT)
 	begin
 		if(RSLT)
 		begin
 		hex0in = 8'hAA;
-		//hex1in = 8'h11;
-		//hex2in = 8'h11;
-		//hex3in = 8'h11;
+		hex1in = 8'hAA;
+		hex2in = SW[3:0];
+		hex3in = SW[7:4];
 		end
 		else
 		begin
 		hex0in = 8'hFF;
-		//hex1in = 8'hFF;
-		//hex2in = 8'hFF;
-		//hex3in = 8'hFF;		
+		hex1in = 8'hFF;
+		hex2in = SW[3:0];
+		hex3in = SW[7:4];		
 		end
 	end
 	else
 	begin
 		hex0in = 0;
-		//hex1in = 0;
-
+		hex1in = 0;
+		hex2in = 0;
+		hex3in = 0;
 	end
 end
 
 always_comb
 begin
-	hex1in = state_o[1:0];
-	hex2in = input_o[1:0];
-	hex3in = Pin11;
-	hex4in = RSLT_0;	
+	//hex1in = state_o[1:0];
+	//hex2in = input_o[1:0];
+	//hex3in = Pin13;
+	hex4in = RSLT;	
 	hex5in = nand_clk;
 	
 end
@@ -223,43 +261,16 @@ begin
 		nand_ctr = 0;
 	if(LD_RSLT)
 	begin
-		unique case (selection)
-			1 : 
-			begin
-				RSLT = RSLT_0;
-			end
-			2 : 
-			begin
-				RSLT = RSLT_1;
-			end
-			default :
-			begin
-				RSLT = 0;
-			end
-		endcase
+		RSLT = RSLT_O[selection];
 	end
-	
-	unique case (selection)
-		1 : 
-		begin
-			Check_Done = done[0];
-		end
-		2 : 
-		begin
-			Check_Done = done[1];
-		end
-		default :
-		begin
-			Check_Done = 0;
-		end
-	endcase
-
+	Check_Done = done[selection];
 end
 
-chip_checker_state chip_checker_state0(.Clk(Clk), .Reset(Reset_h), .Run(Run_h), .LD_SW(LD_SW), .LD_RSLT(LD_RSLT), .Check_Done(Check_Done), .Start_Check(Start_Check), .DISP_RSLT(DISP_RSLT));
+chip_checker_state chip_checker_state0(.Clk(nand_clk), .Reset(Reset_h), .Run(Run_h), .LD_SW(LD_SW), .LD_RSLT(LD_RSLT), .Check_Done(Check_Done), .Start_Check(Start_Check), .DISP_RSLT(DISP_RSLT));
 
 
-chip_7400 chip_7400_0(.DISP_RSLT(DISP_RSLT), .Clk(Clk), .Reset(Reset_h), .Run(Start_Check), .Done(done[0]), .RSLT(RSLT_0), .Pin13(Pin13_agg[1]), .Pin12(Pin12_agg[1]), .Pin11(Pin11), .Pin10(Pin10_agg[1]), .Pin9(Pin9_agg[1]), .Pin8(Pin8), .Pin6(Pin6), .Pin5(Pin5_agg[1]), .Pin4(Pin4_agg[1]), .Pin3(Pin3), .Pin2(Pin2_agg[1]), .Pin1(Pin1_agg[1]), .input_o(input_o), .state_o(state_o));		
-//chip_7402 chip_7402_0(.DISP_RSLT(DISP_RSLT), .Clk(Clk), .Reset(Reset_h), .Run(Start_Check), .Done(done[0]), .RSLT(RSLT_0), .Pin13(Pin13_agg[1]), .Pin12(Pin12_agg[1]), .Pin11(Pin11_agg[1]), .Pin10(Pin10_agg[1]), .Pin9(Pin9_agg[1]), .Pin8(Pin8_agg[1]), .Pin6(Pin6_agg[1]), .Pin5(Pin5_agg[1]), .Pin4(Pin4_agg[1]), .Pin3(Pin3_agg[1]), .Pin2(Pin2_agg[1]), .Pin1(Pin1_agg[1]));		
-						
+chip_7400 chip_7400_0(.DISP_RSLT(DISP_RSLT), .Clk(nand_clk), .Reset(Reset_h), .Run(Start_Check), .Done(done[1]), .RSLT(RSLT_O[1]), .Pin13(Pin13_agg[1]), .Pin12(Pin12_agg[1]), .Pin11(Pin11), .Pin10(Pin10_agg[1]), .Pin9(Pin9_agg[1]), .Pin8(Pin8), .Pin6(Pin6), .Pin5(Pin5_agg[1]), .Pin4(Pin4_agg[1]), .Pin3(Pin3), .Pin2(Pin2_agg[1]), .Pin1(Pin1_agg[1]));//, .state_o(state_o), .input_o(input_o));		
+chip_7402 chip_7402_0(.DISP_RSLT(DISP_RSLT), .Clk(nand_clk), .Reset(Reset_h), .Run(Start_Check), .Done(done[2]), .RSLT(RSLT_O[2]), .Pin13(Pin13), .Pin12(Pin12_agg[2]), .Pin11(Pin11_agg[2]), .Pin10(Pin10), .Pin9(Pin9_agg[2]), .Pin8(Pin8_agg[2]), .Pin6(Pin6_agg[2]), .Pin5(Pin5_agg[2]), .Pin4(Pin4), .Pin3(Pin3_agg[2]), .Pin2(Pin2_agg[2]), .Pin1(Pin1));//, .state_o(state_o), .input_o(input_o));		
+chip_7404 chip_7404_0(.DISP_RSLT(DISP_RSLT), .Clk(nand_clk), .Reset(Reset_h), .Run(Start_Check), .Done(done[3]), .RSLT(RSLT_O[3]), .Pin13(Pin13_agg[3]), .Pin12(Pin12), .Pin11(Pin11_agg[3]), .Pin10(Pin10), .Pin9(Pin9_agg[3]), .Pin8(Pin8), .Pin6(Pin6), .Pin5(Pin5_agg[3]), .Pin4(Pin4), .Pin3(Pin3_agg[3]), .Pin2(Pin2), .Pin1(Pin1_agg[3]));//, .state_o(state_o), .input_o(input_o));		
+				
 endmodule

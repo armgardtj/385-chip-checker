@@ -23,17 +23,14 @@ enum logic [3:0] { Halted,
 						Test,
 						Done_s}   State, Next_state;   // Internal state logic
 
-reg [1:0] inputs;
-
+logic inputs;
 logic RSLT_Save;
-const int max_states = 1;
 
 always_ff @ (posedge Clk)
 begin
 	if (Reset)
 	begin
 		State <= Halted;
-		inputs = 0;
 	end
 	else 
 	begin
@@ -41,29 +38,44 @@ begin
 		RSLT = RSLT_Save; 
 	end
 	
-	if (State == Test)
+	if (State == Set)
+		inputs = 0;
+	else if (State == Test)
 		inputs++;
 end
 
-always_latch
+always_comb
 	begin 
 		// Default next state is staying at current state
-		reg A, B, Y;
+		logic A, B, Y;
 		Next_state = State;
 		Done = 0;
 		RSLT_Save = RSLT;
+		Pin13 = 0;
+		Pin11 = 0;
+		Pin9 = 0;
+		Pin5 = 0;
+		Pin3 = 0;
+		Pin1 = 0;
 		// Assign next state
 		unique case (State)
 			Halted : 
 			begin
 				if (Run) 
 					Next_state = Set;
+				else
+					Next_state = Halted;
 			end
 			Set: Next_state = Test;
 			Test:
 			begin
-				if (inputs == max_states)
+				if (inputs == 1'b1)
+				begin
 					Next_state = Done_s;
+					Done = 1;
+				end
+				else
+					Next_state = Test;
 			end
 			Done_s : 
 			begin
@@ -82,7 +94,7 @@ always_latch
 			end
 			Test :
 			begin
-				A = inputs[0];
+				A = inputs;
 				Y = ~inputs;
 				Pin1 = A;
 				if (Pin2 != Y)
