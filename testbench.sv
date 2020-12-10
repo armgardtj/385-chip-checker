@@ -52,7 +52,7 @@ integer ErrorCnt = 0;
 		
 // Instantiating the DUT
 // Make sure the module and signal names match with those in your design
-chip_checker chip_checker0(.*);	
+//chip_checker chip_checker0(.*);	
 //slc3_testtop slc3_testtop0(.*);	
 
 // Toggle the clock
