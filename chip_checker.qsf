@@ -151,4 +151,7 @@ set_global_assignment -name SYSTEMVERILOG_FILE chip_checker_state.sv
 set_global_assignment -name SYSTEMVERILOG_FILE chip_7402.sv
 set_global_assignment -name SYSTEMVERILOG_FILE chip_7404.sv
 set_global_assignment -name SYSTEMVERILOG_FILE chip_7400.sv
+set_global_assignment -name SYSTEMVERILOG_FILE chip_7410.sv
+set_global_assignment -name SYSTEMVERILOG_FILE chip_7420.sv
+set_global_assignment -name SYSTEMVERILOG_FILE chip_7427.sv
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
