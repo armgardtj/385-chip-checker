@@ -16,3 +16,5 @@ module chip_74194AE(input logic Clk,
 						output logic Done,
 						output logic RSLT,
 						input logic DISP_RSLT);
+						
+endmodule
