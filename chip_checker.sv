@@ -563,15 +563,15 @@ begin
 	begin
 		hex0in = 0;
 		hex1in = 0;
-		hex2in = SW[3:0];
-		hex3in = SW[7:4];
+		hex2in = selection[3:0];
+		hex3in = selection[7:4];
 	end
 	else if (LD_RSLT)
 	begin
 		hex0in = 0;
 		hex1in = 0;
-		hex2in = SW[3:0];
-		hex3in = SW[7:4];
+		hex2in = selection[3:0];
+		hex3in = selection[7:4];
 
 	end
 	else if(DISP_RSLT)
@@ -580,15 +580,15 @@ begin
 		begin
 		hex0in = 8'hAA;
 		hex1in = 8'hAA;
-		hex2in = SW[3:0];
-		hex3in = SW[7:4];
+		hex2in = selection[3:0];
+		hex3in = selection[7:4];
 		end
 		else
 		begin
 		hex0in = 8'hFF;
 		hex1in = 8'hFF;
-		hex2in = SW[3:0];
-		hex3in = SW[7:4];		
+		hex2in = selection[3:0];
+		hex3in = selection[7:4];		
 		end
 	end
 	else
