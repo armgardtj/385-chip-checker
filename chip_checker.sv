@@ -428,6 +428,66 @@ begin
 			io[1] = 1;
 			io[0] = 1;
 		end
+		14 : 
+		begin
+			io[16] = 0;
+			io[15] = 0;
+			io[14] = 0;
+			io[13] = 1;
+			io[12] = 1;
+			io[11] = 0;
+			io[10] = 1;
+			io[9] = 1;
+			io[8] = 0;
+			io[7] = 0;
+			io[6] = 0;
+			io[5] = 1;
+			io[4] = 1;
+			io[3] = 0;
+			io[2] = 1;
+			io[1] = 1;
+			io[0] = 1;
+		end
+		15 : 
+		begin
+			io[16] = 0;
+			io[15] = 0;
+			io[14] = 0;
+			io[13] = 1;
+			io[12] = 1;
+			io[11] = 0;
+			io[10] = 1;
+			io[9] = 1;
+			io[8] = 0;
+			io[7] = 0;
+			io[6] = 0;
+			io[5] = 1;
+			io[4] = 1;
+			io[3] = 0;
+			io[2] = 1;
+			io[1] = 1;
+			io[0] = 1;
+		end
+		16 : 
+		begin
+			io[16] = 0;
+			io[15] = 0;
+			io[14] = 0;
+			io[13] = 0;
+			io[12] = 0;
+			io[11] = 0;
+			io[10] = 1;
+			io[9] = 1;
+			io[8] = 1;
+			io[7] = 1;
+			io[6] = 1;
+			io[5] = 1;
+			io[4] = 1;
+			io[3] = 1;
+			io[2] = 1;
+			io[1] = 1;
+			io[0] = 1;
+		end
 		17 : 
 		begin
 			io[16] = 0;
@@ -444,6 +504,26 @@ begin
 			io[5] = 1;
 			io[4] = 1;
 			io[3] = 1;
+			io[2] = 1;
+			io[1] = 1;
+			io[0] = 1;
+		end
+		18 : 
+		begin
+			io[16] = 0;
+			io[15] = 0;
+			io[14] = 0;
+			io[13] = 1;
+			io[12] = 1;
+			io[11] = 0;
+			io[10] = 1;
+			io[9] = 1;
+			io[8] = 0;
+			io[7] = 0;
+			io[6] = 0;
+			io[5] = 1;
+			io[4] = 1;
+			io[3] = 0;
 			io[2] = 1;
 			io[1] = 1;
 			io[0] = 1;
@@ -481,17 +561,17 @@ begin
 	if(LD_SW)
 	begin
 
-		hex0in = SW[3:0];
-//		hex1in = 0;
-//		hex2in = SW[3:0];
-//		hex3in = SW[7:4];
+		hex0in = 0;
+		hex1in = 0;
+		hex2in = SW[3:0];
+		hex3in = SW[7:4];
 	end
 	else if (LD_RSLT)
 	begin
-		hex0in = SW[3:0];
-//		hex1in = 0;
-//		hex2in = SW[3:0];
-//		hex3in = SW[7:4];
+		hex0in = 0;
+		hex1in = 0;
+		hex2in = SW[3:0];
+		hex3in = SW[7:4];
 
 	end
 	else if(DISP_RSLT)
@@ -499,29 +579,29 @@ begin
 		if(RSLT)
 		begin
 		hex0in = 8'hAA;
-//		hex1in = 8'hAA;
-//		hex2in = SW[3:0];
-//		hex3in = SW[7:4];
+		hex1in = 8'hAA;
+		hex2in = SW[3:0];
+		hex3in = SW[7:4];
 		end
 		else
 		begin
 		hex0in = 8'hFF;
-//		hex1in = 8'hFF;
-//		hex2in = SW[3:0];
-//		hex3in = SW[7:4];		
+		hex1in = 8'hFF;
+		hex2in = SW[3:0];
+		hex3in = SW[7:4];		
 		end
 	end
 	else
 	begin
 
 		hex0in = 0;
-//		hex1in = 0;
-//		hex2in = 0;
-//		hex3in = 0;
+		hex1in = 0;
+		hex2in = 0;
+		hex3in = 0;
 
 	end
 end
-
+/*
 always_comb
 begin
 	hex1in = input_o[3:0];
@@ -531,11 +611,11 @@ begin
 	hex5in = slow_clk;
 	
 end
-
+*/
 always_ff @ (posedge Clk)
 begin
 	ctr++;
-	if (ctr % 50000000 == 0)
+	if (ctr % 500 == 0)
 		slow_clk = ~slow_clk;
 	if (Reset_h)
 		ctr = 0;
@@ -666,11 +746,11 @@ chip_74109N chip_74109N_0(.DISP_RSLT(DISP_RSLT), .Clk(slow_clk), .Reset(Reset_h)
 chip_74151N chip_74151N_0(.DISP_RSLT(DISP_RSLT), .Clk(slow_clk), .Reset(Reset_h), .Run(Start_Check), .Done(done[11]), .RSLT(RSLT_O[11]), .Pin15(Pin15_agg[11]), .Pin14(Pin14_agg[11]), .Pin13(Pin13_agg[11]), .Pin12(Pin12_agg[11]), .Pin11(Pin11_agg[11]), .Pin10(Pin10_agg[11]), .Pin9(Pin9_agg[11]), .Pin7(Pin7_agg[11]), .Pin6(Pin6), .Pin5(Pin5), .Pin4(Pin4_agg[11]), .Pin3(Pin3_agg[11]), .Pin2(Pin2_agg[11]), .Pin1(Pin1_agg[11]));
 chip_74153N chip_74153N_0(.DISP_RSLT(DISP_RSLT), .Clk(slow_clk), .Reset(Reset_h), .Run(Start_Check), .Done(done[12]), .RSLT(RSLT_O[12]), .Pin15(Pin15_agg[12]), .Pin14(Pin14_agg[12]), .Pin13(Pin13_agg[12]), .Pin12(Pin12_agg[12]), .Pin11(Pin11_agg[12]), .Pin10(Pin10_agg[12]), .Pin9(Pin9), .Pin7(Pin7), .Pin6(Pin6_agg[12]), .Pin5(Pin5_agg[12]), .Pin4(Pin4_agg[12]), .Pin3(Pin3_agg[12]), .Pin2(Pin2_agg[12]), .Pin1(Pin1_agg[12]));//, .state_o(state_o), .input_o(input_o));		
 chip_74157N chip_74157N_0(.DISP_RSLT(DISP_RSLT), .Clk(slow_clk), .Reset(Reset_h), .Run(Start_Check), .Done(done[13]), .RSLT(RSLT_O[13]), .Pin15(Pin15_agg[13]), .Pin14(Pin14_agg[13]), .Pin13(Pin13_agg[13]), .Pin12(Pin12), .Pin11(Pin11_agg[13]), .Pin10(Pin10_agg[13]), .Pin9(Pin9), .Pin7(Pin7), .Pin6(Pin6_agg[13]), .Pin5(Pin5_agg[13]), .Pin4(Pin4), .Pin3(Pin3_agg[13]), .Pin2(Pin2_agg[13]), .Pin1(Pin1_agg[13]));//, .E(state_o), .input_o(input_o));		
-//chip_74161N chip_74161N_0(.DISP_RSLT(DISP_RSLT), .Clk(slow_clk), .Reset(Reset_h), .Run(Start_Check), .Done(done[8]), .RSLT(RSLT_O[8]), .Pin13(Pin13_agg[8]), .Pin12(Pin12_agg[8]), .Pin11(Pin11), .Pin10(Pin10_agg[8]), .Pin9(Pin9_agg[8]), .Pin8(Pin8), .Pin6(Pin6), .Pin5(Pin5_agg[8]), .Pin4(Pin4_agg[8]), .Pin3(Pin3), .Pin2(Pin2_agg[8]), .Pin1(Pin1_agg[8]));//, .state_o(state_o), .input_o(input_o));		
-//chip_74163N chip_74163N_0(.DISP_RSLT(DISP_RSLT), .Clk(slow_clk), .Reset(Reset_h), .Run(Start_Check), .Done(done[8]), .RSLT(RSLT_O[8]), .Pin13(Pin13_agg[8]), .Pin12(Pin12_agg[8]), .Pin11(Pin11), .Pin10(Pin10_agg[8]), .Pin9(Pin9_agg[8]), .Pin8(Pin8), .Pin6(Pin6), .Pin5(Pin5_agg[8]), .Pin4(Pin4_agg[8]), .Pin3(Pin3), .Pin2(Pin2_agg[8]), .Pin1(Pin1_agg[8]));//, .state_o(state_o), .input_o(input_o));		
-//chip_74194N chip_74194N_0(.DISP_RSLT(DISP_RSLT), .Clk(slow_clk), .Reset(Reset_h), .Run(Start_Check), .Done(done[8]), .RSLT(RSLT_O[8]), .Pin13(Pin13_agg[8]), .Pin12(Pin12_agg[8]), .Pin11(Pin11), .Pin10(Pin10_agg[8]), .Pin9(Pin9_agg[8]), .Pin8(Pin8), .Pin6(Pin6), .Pin5(Pin5_agg[8]), .Pin4(Pin4_agg[8]), .Pin3(Pin3), .Pin2(Pin2_agg[8]), .Pin1(Pin1_agg[8]));//, .state_o(state_o), .input_o(input_o));		
-//chip_74195E chip_74195E_0(.DISP_RSLT(DISP_RSLT), .Clk(slow_clk), .Reset(Reset_h), .Run(Start_Check), .Done(done[17]), .RSLT(RSLT_O[17]), .Pin15(Pin15), .Pin14(Pin14), .Pin13(Pin13), .Pin12(Pin12), .Pin11(Pin11), .Pin10(Pin10_agg[17]), .Pin9(Pin9_agg[17]), .Pin7(Pin7_agg[17]), .Pin6(Pin6_agg[17]), .Pin5(Pin5_agg[17]), .Pin4(Pin4_agg[17]), .Pin3(Pin3_agg[17]), .Pin2(Pin2_agg[17]), .Pin1(Pin1_agg[17]), .E(expected), .input_o(input_o));		
-//chip_74279 chip_74279_0(.DISP_RSLT(DISP_RSLT), .Clk(slow_clk), .Reset(Reset_h), .Run(Start_Check), .Done(done[8]), .RSLT(RSLT_O[8]), .Pin13(Pin13_agg[8]), .Pin12(Pin12_agg[8]), .Pin11(Pin11), .Pin10(Pin10_agg[8]), .Pin9(Pin9_agg[8]), .Pin8(Pin8), .Pin6(Pin6), .Pin5(Pin5_agg[8]), .Pin4(Pin4_agg[8]), .Pin3(Pin3), .Pin2(Pin2_agg[8]), .Pin1(Pin1_agg[8]));//, .state_o(state_o), .input_o(input_o));		
+chip_74161N chip_74161N_0(.DISP_RSLT(DISP_RSLT), .Clk(slow_clk), .Reset(Reset_h), .Run(Start_Check), .Done(done[14]), .RSLT(RSLT_O[14]), .Pin13(Pin13_agg[14]), .Pin12(Pin12_agg[14]), .Pin11(Pin11), .Pin10(Pin10_agg[14]), .Pin9(Pin9_agg[14]), .Pin8(Pin8), .Pin6(Pin6), .Pin5(Pin5_agg[14]), .Pin4(Pin4_agg[14]), .Pin3(Pin3), .Pin2(Pin2_agg[14]), .Pin1(Pin1_agg[14]));//, .state_o(state_o), .input_o(input_o));		
+chip_74163E chip_74163E_0(.DISP_RSLT(DISP_RSLT), .Clk(slow_clk), .Reset(Reset_h), .Run(Start_Check), .Done(done[15]), .RSLT(RSLT_O[15]), .Pin13(Pin13_agg[15]), .Pin12(Pin12_agg[15]), .Pin11(Pin11), .Pin10(Pin10_agg[15]), .Pin9(Pin9_agg[15]), .Pin8(Pin8), .Pin6(Pin6), .Pin5(Pin5_agg[15]), .Pin4(Pin4_agg[15]), .Pin3(Pin3), .Pin2(Pin2_agg[15]), .Pin1(Pin1_agg[15]));//, .state_o(state_o), .input_o(input_o));		
+chip_74194AE chip_74194AE_0(.DISP_RSLT(DISP_RSLT), .Clk(slow_clk), .Reset(Reset_h), .Run(Start_Check), .Done(done[16]), .RSLT(RSLT_O[16]), .Pin15(Pin15), .Pin14(Pin14), .Pin13(Pin13), .Pin12(Pin12), .Pin11(Pin11), .Pin10(Pin10_agg[16]), .Pin9(Pin9_agg[16]), .Pin7(Pin7_agg[16]), .Pin6(Pin6_agg[16]), .Pin5(Pin5_agg[16]), .Pin4(Pin4_agg[16]), .Pin3(Pin3_agg[16]), .Pin2(Pin2_agg[16]), .Pin1(Pin1_agg[16]));//, .E(expected), .input_o(input_o));		
+chip_74195E chip_74195E_0(.DISP_RSLT(DISP_RSLT), .Clk(slow_clk), .Reset(Reset_h), .Run(Start_Check), .Done(done[17]), .RSLT(RSLT_O[17]), .Pin15(Pin15), .Pin14(Pin14), .Pin13(Pin13), .Pin12(Pin12), .Pin11(Pin11), .Pin10(Pin10_agg[17]), .Pin9(Pin9_agg[17]), .Pin7(Pin7_agg[17]), .Pin6(Pin6_agg[17]), .Pin5(Pin5_agg[17]), .Pin4(Pin4_agg[17]), .Pin3(Pin3_agg[17]), .Pin2(Pin2_agg[17]), .Pin1(Pin1_agg[17]));//, .E(expected), .input_o(input_o));		
+chip_74279 chip_74279_0(.DISP_RSLT(DISP_RSLT), .Clk(slow_clk), .Reset(Reset_h), .Run(Start_Check), .Done(done[18]), .RSLT(RSLT_O[18]), .Pin13(Pin13_agg[18]), .Pin12(Pin12_agg[18]), .Pin11(Pin11), .Pin10(Pin10_agg[18]), .Pin9(Pin9_agg[18]), .Pin8(Pin8), .Pin6(Pin6), .Pin5(Pin5_agg[18]), .Pin4(Pin4_agg[18]), .Pin3(Pin3), .Pin2(Pin2_agg[18]), .Pin1(Pin1_agg[18]));//, .state_o(state_o), .input_o(input_o));		
 
 	
 endmodule

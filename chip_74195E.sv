@@ -74,7 +74,7 @@ begin
 			else
 				Next_state = Halted;
 		end
-		Set: Next_state = Test;
+		Set: Next_state = Done_s;
 		Test:
 		begin
 			if (inputs == 9'b101111111)
