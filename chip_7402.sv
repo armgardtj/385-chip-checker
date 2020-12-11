@@ -15,8 +15,6 @@ module chip_7402( input logic Clk,
 						input logic Pin1,
 						output logic Done,
 						output logic RSLT,
-						output logic [3:0] E,
-						output logic [3:0] input_o,
 						input logic DISP_RSLT);
 
 									
@@ -99,8 +97,7 @@ always @ (inputs)
 		Pin12 = 0;
 		
 		RSLT_Save = RSLT;
-		E = Y;
-		input_o = inputs;
+
 		unique case (State)
 			Halted : ;
 			Set :

@@ -5,7 +5,7 @@ module chip_74194AE(input logic Clk,
 						input logic Pin14,
 						input logic Pin13,
 						input logic Pin12,
-						input logic Pin11,
+						output logic Pin11,
 						output logic Pin10,
 						output logic Pin9,
 						output logic Pin7,
@@ -17,8 +17,6 @@ module chip_74194AE(input logic Clk,
 						output logic Pin1,
 						output logic Done,
 						output logic RSLT,
-						output logic [3:0] E,
-						output logic [3:0] input_o,
 						input logic DISP_RSLT);
 						
 enum logic [1:0] { Halted,
@@ -27,10 +25,10 @@ enum logic [1:0] { Halted,
 						Done_s}   State, Next_state;   // Internal state logic
 
 
-logic [8:0] inputs;
+logic [9:0] inputs;
 logic RSLT_Save;
-logic SHLD, CLR, CCLK, A, B, C, D, J, K;
-logic [4:0] Q = {5'b00000};
+logic CLR, CCLK, SR, SL, S0, S1, A, B, C, D;
+logic [3:0] Q = {4'b0000};
 
 always_ff @ (posedge Clk)
 begin
@@ -60,12 +58,11 @@ begin
 	B = inputs[2];
 	C = inputs[3];
 	D = inputs[4];
-	SHLD = ~inputs[5];
-	J = inputs[6];
-	K = ~inputs[7];
-	CLR = ~inputs[8];
-	input_o = inputs[3:0];
-	E = Q[4:1];
+	S0 = inputs[5];
+	S1 = inputs[6];
+	CLR = ~inputs[7];
+	SR = inputs[8];
+	SL = inputs[9];
 	unique case (State)
 		Halted : 
 		begin
@@ -74,10 +71,10 @@ begin
 			else
 				Next_state = Halted;
 		end
-		Set: Next_state = Done_s;
+		Set: Next_state = Test;
 		Test:
 		begin
-			if (inputs == 9'b101111111)
+			if (inputs == 10'b1111111111)
 			begin
 				Next_state = Done_s;
 				Done = 1;
@@ -99,19 +96,17 @@ end
 always @ (inputs)
 	begin 
 		if (~CLR)
-			Q[4:0] = 0;
-		else if (~SHLD)
-			Q[4:0] = {A,B,C,D,~D};
+			Q[3:0] = 0;
+		else if (S1 && S0)
+			Q[3:0] = {A,B,C,D};
 		else if (CCLK)
 		begin
-			if (~J && K)
-				Q[4:0] = {Q[4],Q[4],Q[3],Q[2],~Q[2]};
-			else if (~J && ~K)
-				Q[4:0] = {1'b0,Q[4],Q[3],Q[2],~Q[2]};
-			else if (J && K)
-				Q[4:0] = {1'b1,Q[4],Q[3],Q[2],~Q[2]};
+			if (S1)
+				Q = {Q[2],Q[1],Q[0],SL};
+			else if (S0)
+				Q = {SR,Q[3],Q[2],Q[1]};
 			else
-				Q[4:0] = {~Q[4],Q[4],Q[3],Q[2],~Q[2]};
+				Q = {Q[3],Q[2],Q[1],Q[0]};
 		end
 		Pin1 = 0;
 		Pin2 = 0;
@@ -122,6 +117,7 @@ always @ (inputs)
 		Pin7 = 0;
 		Pin9 = 0;
 		Pin10 = 0;
+		Pin11 = 0;
 			
 		RSLT_Save = RSLT;
 		unique case (State)
@@ -133,15 +129,16 @@ always @ (inputs)
 			Test :
 			begin
 				Pin1 = CLR;
-				Pin2 = J;
-				Pin3 = K;
-				Pin4 = A;
-				Pin5 = B;
-				Pin6 = C;
-				Pin7 = D;
-				Pin9 = SHLD;
-				Pin10 = CCLK;
-				if (Q[4:0] != {Pin15, Pin14, Pin13, Pin12, Pin11})
+				Pin2 = SR;
+				Pin3 = A;
+				Pin4 = B;
+				Pin5 = C;
+				Pin6 = D;
+				Pin7 = SL;
+				Pin9 = S0;
+				Pin10 = S1;
+				Pin11 = CCLK;
+				if (Q[3:0] != {Pin15, Pin14, Pin13, Pin12})
 					RSLT_Save = 0;
 			end
 			Done_s : ;

@@ -17,8 +17,6 @@ module chip_74195E(input logic Clk,
 						output logic Pin1,
 						output logic Done,
 						output logic RSLT,
-						output logic [3:0] E,
-						output logic [3:0] input_o,
 						input logic DISP_RSLT);
 						
 enum logic [1:0] { Halted,
@@ -64,8 +62,6 @@ begin
 	J = inputs[6];
 	K = ~inputs[7];
 	CLR = ~inputs[8];
-	input_o = inputs[3:0];
-	E = Q[4:1];
 	unique case (State)
 		Halted : 
 		begin
@@ -74,7 +70,7 @@ begin
 			else
 				Next_state = Halted;
 		end
-		Set: Next_state = Done_s;
+		Set: Next_state = Test;
 		Test:
 		begin
 			if (inputs == 9'b101111111)
