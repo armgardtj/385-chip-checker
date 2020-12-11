@@ -54,6 +54,7 @@ assign Pin11 = io[11] ? TPin11 : 8'bZ ;
 assign Pin10 = io[10] ? TPin10 : 8'bZ ;
 assign Pin9 = io[9] ? TPin9 : 8'bZ ;
 assign Pin8 = io[8] ? TPin8 : 8'bZ ;
+assign Pin7 = io[7] ? TPin7 : 8'bZ ;
 assign Pin6 = io[6] ? TPin6 : 8'bZ ;
 assign Pin5 = io[5] ? TPin5 : 8'bZ ;
 assign Pin4 = io[4] ? TPin4 : 8'bZ ;
@@ -297,6 +298,66 @@ begin
 			io[1] = 1;
 			io[0] = 1;
 		end
+		11 : 
+		begin
+			io[16] = 0;
+			io[15] = 1;
+			io[14] = 1;
+			io[13] = 1;
+			io[12] = 1;
+			io[11] = 1;
+			io[10] = 1;
+			io[9] = 1;
+			io[8] = 0;
+			io[7] = 1;
+			io[6] = 0;
+			io[5] = 0;
+			io[4] = 1;
+			io[3] = 1;
+			io[2] = 1;
+			io[1] = 1;
+			io[0] = 1;
+		end
+		12 : 
+		begin
+			io[16] = 0;
+			io[15] = 1;
+			io[14] = 1;
+			io[13] = 1;
+			io[12] = 1;
+			io[11] = 1;
+			io[10] = 1;
+			io[9] = 0;
+			io[8] = 0;
+			io[7] = 0;
+			io[6] = 1;
+			io[5] = 1;
+			io[4] = 1;
+			io[3] = 1;
+			io[2] = 1;
+			io[1] = 1;
+			io[0] = 1;
+		end
+		13 : 
+		begin
+			io[16] = 0;
+			io[15] = 1;
+			io[14] = 1;
+			io[13] = 1;
+			io[12] = 0;
+			io[11] = 1;
+			io[10] = 1;
+			io[9] = 0;
+			io[8] = 0;
+			io[7] = 0;
+			io[6] = 1;
+			io[5] = 1;
+			io[4] = 0;
+			io[3] = 1;
+			io[2] = 1;
+			io[1] = 1;
+			io[0] = 1;
+		end
 		default :
 		begin
 			io[16:0] = 0;
@@ -319,6 +380,7 @@ begin
 	TPin10 = Pin10_agg[selection];
 	TPin9 = Pin9_agg[selection];		
 	TPin8 = Pin8_agg[selection];
+	TPin7 = Pin7_agg[selection];
 	TPin6 = Pin6_agg[selection];
 	TPin5 = Pin5_agg[selection];
 	TPin4 = Pin4_agg[selection];		
@@ -368,9 +430,9 @@ end
 
 always_comb
 begin
-	hex1in = state_o[1:0];
-	hex2in = input_o[1:0];
-	hex3in = Pin6;
+	hex1in = input_o[3:0];
+	hex2in = state_o[1:0];
+	hex3in = Pin7;
 	hex4in = RSLT;	
 	hex5in = slow_clk;
 	
@@ -379,7 +441,7 @@ end
 always_ff @ (posedge Clk)
 begin
 	ctr++;
-	if (ctr % 500000 == 0)
+	if (ctr % 500 == 0)
 		slow_clk = ~slow_clk;
 	if (Reset_h)
 		ctr = 0;
@@ -397,15 +459,15 @@ chip_7400 chip_7400_0(.DISP_RSLT(DISP_RSLT), .Clk(slow_clk), .Reset(Reset_h), .R
 chip_7402 chip_7402_0(.DISP_RSLT(DISP_RSLT), .Clk(slow_clk), .Reset(Reset_h), .Run(Start_Check), .Done(done[2]), .RSLT(RSLT_O[2]), .Pin13(Pin13), .Pin12(Pin12_agg[2]), .Pin11(Pin11_agg[2]), .Pin10(Pin10), .Pin9(Pin9_agg[2]), .Pin8(Pin8_agg[2]), .Pin6(Pin6_agg[2]), .Pin5(Pin5_agg[2]), .Pin4(Pin4), .Pin3(Pin3_agg[2]), .Pin2(Pin2_agg[2]), .Pin1(Pin1));//, .state_o(state_o), .input_o(input_o));		
 chip_7404 chip_7404_0(.DISP_RSLT(DISP_RSLT), .Clk(slow_clk), .Reset(Reset_h), .Run(Start_Check), .Done(done[3]), .RSLT(RSLT_O[3]), .Pin13(Pin13_agg[3]), .Pin12(Pin12), .Pin11(Pin11_agg[3]), .Pin10(Pin10), .Pin9(Pin9_agg[3]), .Pin8(Pin8), .Pin6(Pin6), .Pin5(Pin5_agg[3]), .Pin4(Pin4), .Pin3(Pin3_agg[3]), .Pin2(Pin2), .Pin1(Pin1_agg[3]));//, .state_o(state_o), .input_o(input_o));		
 chip_7410 chip_7410_0(.DISP_RSLT(DISP_RSLT), .Clk(slow_clk), .Reset(Reset_h), .Run(Start_Check), .Done(done[4]), .RSLT(RSLT_O[4]), .Pin13(Pin13_agg[4]), .Pin12(Pin12), .Pin11(Pin11_agg[4]), .Pin10(Pin10_agg[4]), .Pin9(Pin9_agg[4]), .Pin8(Pin8), .Pin6(Pin6), .Pin5(Pin5_agg[4]), .Pin4(Pin4_agg[4]), .Pin3(Pin3_agg[4]), .Pin2(Pin2_agg[4]), .Pin1(Pin1_agg[4]));//, .state_o(state_o), .input_o(input_o));		
-chip_7420 chip_7420_0(.DISP_RSLT(DISP_RSLT), .Clk(slow_clk), .Reset(Reset_h), .Run(Start_Check), .Done(done[5]), .RSLT(RSLT_O[5]), .Pin13(Pin13_agg[5]), .Pin12(Pin12_agg[5]), .Pin10(Pin10_agg[5]), .Pin9(Pin9_agg[5]), .Pin8(Pin8), .Pin6(Pin6), .Pin5(Pin5_agg[5]), .Pin4(Pin4_agg[5]), .Pin2(Pin2_agg[5]), .Pin1(Pin1_agg[5]), .state_o(state_o), .input_o(input_o));		
+chip_7420 chip_7420_0(.DISP_RSLT(DISP_RSLT), .Clk(slow_clk), .Reset(Reset_h), .Run(Start_Check), .Done(done[5]), .RSLT(RSLT_O[5]), .Pin13(Pin13_agg[5]), .Pin12(Pin12_agg[5]), .Pin10(Pin10_agg[5]), .Pin9(Pin9_agg[5]), .Pin8(Pin8), .Pin6(Pin6), .Pin5(Pin5_agg[5]), .Pin4(Pin4_agg[5]), .Pin2(Pin2_agg[5]), .Pin1(Pin1_agg[5]));//, .state_o(state_o), .input_o(input_o));		
 chip_7427 chip_7427_0(.DISP_RSLT(DISP_RSLT), .Clk(slow_clk), .Reset(Reset_h), .Run(Start_Check), .Done(done[6]), .RSLT(RSLT_O[6]), .Pin13(Pin13_agg[6]), .Pin12(Pin12), .Pin11(Pin11_agg[6]), .Pin10(Pin10_agg[6]), .Pin9(Pin9_agg[6]), .Pin8(Pin8), .Pin6(Pin6), .Pin5(Pin5_agg[6]), .Pin4(Pin4_agg[6]), .Pin3(Pin3_agg[6]), .Pin2(Pin2_agg[6]), .Pin1(Pin1_agg[6]));//, .state_o(state_o), .input_o(input_o));		
-chip_7474 chip_7474_0(.DISP_RSLT(DISP_RSLT), .Clk(slow_clk), .Reset(Reset_h), .Run(Start_Check), .Done(done[7]), .RSLT(RSLT_O[7]), .Pin13(Pin13_agg[7]), .Pin12(Pin12_agg[7]), .Pin11(Pin11_agg[7]), .Pin10(Pin10_agg[7]), .Pin9(Pin9), .Pin8(Pin8), .Pin6(Pin6), .Pin5(Pin5), .Pin4(Pin4_agg[7]), .Pin3(Pin3_agg[7]), .Pin2(Pin2_agg[7]), .Pin1(Pin1_agg[7]));//, .CCLK_O(state_o), .D_O(input_o));		
+//chip_7474 chip_7474_0(.DISP_RSLT(DISP_RSLT), .Clk(slow_clk), .Reset(Reset_h), .Run(Start_Check), .Done(done[7]), .RSLT(RSLT_O[7]), .Pin13(Pin13_agg[7]), .Pin12(Pin12_agg[7]), .Pin11(Pin11_agg[7]), .Pin10(Pin10_agg[7]), .Pin9(Pin9), .Pin8(Pin8), .Pin6(Pin6), .Pin5(Pin5), .Pin4(Pin4_agg[7]), .Pin3(Pin3_agg[7]), .Pin2(Pin2_agg[7]), .Pin1(Pin1_agg[7]));//, .CCLK_O(state_o), .D_O(input_o));		
 //chip_7485 chip_7485_0(.DISP_RSLT(DISP_RSLT), .Clk(slow_clk), .Reset(Reset_h), .Run(Start_Check), .Done(done[8]), .RSLT(RSLT_O[8]), .Pin13(Pin13_agg[8]), .Pin12(Pin12_agg[8]), .Pin11(Pin11), .Pin10(Pin10_agg[8]), .Pin9(Pin9_agg[8]), .Pin8(Pin8), .Pin6(Pin6), .Pin5(Pin5_agg[8]), .Pin4(Pin4_agg[8]), .Pin3(Pin3), .Pin2(Pin2_agg[8]), .Pin1(Pin1_agg[8]));//, .state_o(state_o), .input_o(input_o));		
 chip_7486 chip_7486_0(.DISP_RSLT(DISP_RSLT), .Clk(slow_clk), .Reset(Reset_h), .Run(Start_Check), .Done(done[9]), .RSLT(RSLT_O[9]), .Pin13(Pin13_agg[9]), .Pin12(Pin12_agg[9]), .Pin11(Pin11), .Pin10(Pin10_agg[9]), .Pin9(Pin9_agg[9]), .Pin8(Pin8), .Pin6(Pin6), .Pin5(Pin5_agg[9]), .Pin4(Pin4_agg[9]), .Pin3(Pin3), .Pin2(Pin2_agg[9]), .Pin1(Pin1_agg[9]));//, .state_o(state_o), .input_o(input_o));		
 //chip_74109N chip_74109N_0(.DISP_RSLT(DISP_RSLT), .Clk(slow_clk), .Reset(Reset_h), .Run(Start_Check), .Done(done[8]), .RSLT(RSLT_O[8]), .Pin13(Pin13_agg[8]), .Pin12(Pin12_agg[8]), .Pin11(Pin11), .Pin10(Pin10_agg[8]), .Pin9(Pin9_agg[8]), .Pin8(Pin8), .Pin6(Pin6), .Pin5(Pin5_agg[8]), .Pin4(Pin4_agg[8]), .Pin3(Pin3), .Pin2(Pin2_agg[8]), .Pin1(Pin1_agg[8]));//, .state_o(state_o), .input_o(input_o));		
-//chip_74151N chip_74151N_0(.DISP_RSLT(DISP_RSLT), .Clk(slow_clk), .Reset(Reset_h), .Run(Start_Check), .Done(done[8]), .RSLT(RSLT_O[8]), .Pin13(Pin13_agg[8]), .Pin12(Pin12_agg[8]), .Pin11(Pin11), .Pin10(Pin10_agg[8]), .Pin9(Pin9_agg[8]), .Pin8(Pin8), .Pin6(Pin6), .Pin5(Pin5_agg[8]), .Pin4(Pin4_agg[8]), .Pin3(Pin3), .Pin2(Pin2_agg[8]), .Pin1(Pin1_agg[8]));//, .state_o(state_o), .input_o(input_o));		
-//chip_74153N chip_74153N_0(.DISP_RSLT(DISP_RSLT), .Clk(slow_clk), .Reset(Reset_h), .Run(Start_Check), .Done(done[8]), .RSLT(RSLT_O[8]), .Pin13(Pin13_agg[8]), .Pin12(Pin12_agg[8]), .Pin11(Pin11), .Pin10(Pin10_agg[8]), .Pin9(Pin9_agg[8]), .Pin8(Pin8), .Pin6(Pin6), .Pin5(Pin5_agg[8]), .Pin4(Pin4_agg[8]), .Pin3(Pin3), .Pin2(Pin2_agg[8]), .Pin1(Pin1_agg[8]));//, .state_o(state_o), .input_o(input_o));		
-chip_74157N chip_74157N_0(.DISP_RSLT(DISP_RSLT), .Clk(slow_clk), .Reset(Reset_h), .Run(Start_Check), .Done(done[8]), .RSLT(RSLT_O[8]), .Pin13(Pin13_agg[8]), .Pin12(Pin12_agg[8]), .Pin11(Pin11), .Pin10(Pin10_agg[8]), .Pin9(Pin9_agg[8]), .Pin8(Pin8), .Pin6(Pin6), .Pin5(Pin5_agg[8]), .Pin4(Pin4_agg[8]), .Pin3(Pin3), .Pin2(Pin2_agg[8]), .Pin1(Pin1_agg[8]));//, .state_o(state_o), .input_o(input_o));		
+chip_74151N chip_74151N_0(.DISP_RSLT(DISP_RSLT), .Clk(slow_clk), .Reset(Reset_h), .Run(Start_Check), .Done(done[11]), .RSLT(RSLT_O[11]), .Pin15(Pin15_agg[11]), .Pin14(Pin14_agg[11]), .Pin13(Pin13_agg[11]), .Pin12(Pin12_agg[11]), .Pin11(Pin11_agg[11]), .Pin10(Pin10_agg[11]), .Pin9(Pin9_agg[11]), .Pin7(Pin7_agg[11]), .Pin6(Pin6), .Pin5(Pin5), .Pin4(Pin4_agg[11]), .Pin3(Pin3_agg[11]), .Pin2(Pin2_agg[11]), .Pin1(Pin1_agg[11]));
+chip_74153N chip_74153N_0(.DISP_RSLT(DISP_RSLT), .Clk(slow_clk), .Reset(Reset_h), .Run(Start_Check), .Done(done[12]), .RSLT(RSLT_O[12]), .Pin15(Pin15_agg[12]), .Pin14(Pin14_agg[12]), .Pin13(Pin13_agg[12]), .Pin12(Pin12_agg[12]), .Pin11(Pin11_agg[12]), .Pin10(Pin10_agg[12]), .Pin9(Pin9), .Pin7(Pin7), .Pin6(Pin6_agg[12]), .Pin5(Pin5_agg[12]), .Pin4(Pin4_agg[12]), .Pin3(Pin3_agg[12]), .Pin2(Pin2_agg[12]), .Pin1(Pin1_agg[12]));//, .state_o(state_o), .input_o(input_o));		
+chip_74157N chip_74157N_0(.DISP_RSLT(DISP_RSLT), .Clk(slow_clk), .Reset(Reset_h), .Run(Start_Check), .Done(done[13]), .RSLT(RSLT_O[13]), .Pin15(Pin15_agg[13]), .Pin14(Pin14_agg[13]), .Pin13(Pin13_agg[13]), .Pin12(Pin12), .Pin11(Pin11_agg[13]), .Pin10(Pin10_agg[13]), .Pin9(Pin9), .Pin7(Pin7), .Pin6(Pin6_agg[13]), .Pin5(Pin5_agg[13]), .Pin4(Pin4), .Pin3(Pin3_agg[13]), .Pin2(Pin2_agg[13]), .Pin1(Pin1_agg[13]));//, .E(state_o), .input_o(input_o));		
 //chip_74161N chip_74161N_0(.DISP_RSLT(DISP_RSLT), .Clk(slow_clk), .Reset(Reset_h), .Run(Start_Check), .Done(done[8]), .RSLT(RSLT_O[8]), .Pin13(Pin13_agg[8]), .Pin12(Pin12_agg[8]), .Pin11(Pin11), .Pin10(Pin10_agg[8]), .Pin9(Pin9_agg[8]), .Pin8(Pin8), .Pin6(Pin6), .Pin5(Pin5_agg[8]), .Pin4(Pin4_agg[8]), .Pin3(Pin3), .Pin2(Pin2_agg[8]), .Pin1(Pin1_agg[8]));//, .state_o(state_o), .input_o(input_o));		
 //chip_74163N chip_74163N_0(.DISP_RSLT(DISP_RSLT), .Clk(slow_clk), .Reset(Reset_h), .Run(Start_Check), .Done(done[8]), .RSLT(RSLT_O[8]), .Pin13(Pin13_agg[8]), .Pin12(Pin12_agg[8]), .Pin11(Pin11), .Pin10(Pin10_agg[8]), .Pin9(Pin9_agg[8]), .Pin8(Pin8), .Pin6(Pin6), .Pin5(Pin5_agg[8]), .Pin4(Pin4_agg[8]), .Pin3(Pin3), .Pin2(Pin2_agg[8]), .Pin1(Pin1_agg[8]));//, .state_o(state_o), .input_o(input_o));		
 //chip_74194N chip_74194N_0(.DISP_RSLT(DISP_RSLT), .Clk(slow_clk), .Reset(Reset_h), .Run(Start_Check), .Done(done[8]), .RSLT(RSLT_O[8]), .Pin13(Pin13_agg[8]), .Pin12(Pin12_agg[8]), .Pin11(Pin11), .Pin10(Pin10_agg[8]), .Pin9(Pin9_agg[8]), .Pin8(Pin8), .Pin6(Pin6), .Pin5(Pin5_agg[8]), .Pin4(Pin4_agg[8]), .Pin3(Pin3), .Pin2(Pin2_agg[8]), .Pin1(Pin1_agg[8]));//, .state_o(state_o), .input_o(input_o));		
