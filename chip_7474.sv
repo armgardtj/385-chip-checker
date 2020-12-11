@@ -15,8 +15,7 @@ module chip_7474( input logic Clk,
 						output logic Pin1,
 						output logic Done,
 						output logic RSLT,
-						output logic CCLK_O,
-						output logic D_O,
+						
 						input logic DISP_RSLT);
 						
 
@@ -27,8 +26,7 @@ enum logic [1:0] { Halted,
 						Done_s}   State, Next_state;   // Internal state logic
 
 
-logic [1:0] inputs;
-logic [1:0] async;
+logic [3:0] inputs;
 logic RSLT_Save;
 logic PRE, CLR, CCLK, D, Q, QN;
 wire m1, m2, m3, m4;
@@ -39,7 +37,7 @@ nand(m4, m3, CLR, D);
 nand(Q, PRE, m2, QN);
 nand(QN, Q, CLR, m3);
 
-always_ff @ (posedge CCLK)
+always_ff @ (posedge Clk)
 begin
 	if (Reset)
 	begin
@@ -52,7 +50,7 @@ begin
 	end
 	
 	if (State == Set)
-		inputs = 0;
+		inputs = 1;
 	else if (State == Test)
 		inputs++;
 end
@@ -64,10 +62,8 @@ begin
 	Next_state = State;
 	CCLK = inputs[0];
 	D = inputs[1];
-	PRE = ~async[0];
-	CLR = ~async[1];
-	D_O = D;
-	CCLK_O = CCLK;
+	PRE = ~inputs[2];
+	CLR = ~inputs[3];
 	unique case (State)
 		Halted : 
 		begin
@@ -79,7 +75,7 @@ begin
 		Set: Next_state = Test;
 		Test:
 		begin
-			if (inputs == 2'b11)
+			if (inputs == 4'b1011)
 			begin
 				Next_state = Done_s;
 				Done = 1;
@@ -119,16 +115,16 @@ always @ (inputs)
 			end   
 			Test :
 			begin
-				Pin1 = ~CLR;
+				Pin1 = CLR;
 				Pin2 = D;
 				Pin3 = CCLK;
-				Pin4 = ~PRE;
+				Pin4 = PRE;
 				if (Pin5 != Q || Pin6 != QN)
 					RSLT_Save = 0;
-				Pin13 = ~CLR;
+				Pin13 = CLR;
 				Pin12 = D;
 				Pin11 = CCLK;
-				Pin10 = ~PRE;
+				Pin10 = PRE;
 				if (Pin9 != Q || Pin8 != QN)
 					RSLT_Save = 0;
 			end
