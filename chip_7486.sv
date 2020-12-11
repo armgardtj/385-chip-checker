@@ -1,22 +1,20 @@
-module chip_7402( input logic Clk, 
+module chip_7486( input logic Clk, 
 						input logic Reset,
 						input logic Run,
-						input logic Pin13,
+						output logic Pin13,
 						output logic Pin12,
-						output logic Pin11,
-						input logic Pin10,
+						input logic Pin11,
+						output logic Pin10,
 						output logic Pin9,
-						output logic Pin8,
-						output logic Pin6,
+						input logic Pin8,
+						input logic Pin6,
 						output logic Pin5,
-						input logic Pin4,
-						output logic Pin3,
+						output logic Pin4,
+						input logic Pin3,
 						output logic Pin2,
-						input logic Pin1,
+						output logic Pin1,
 						output logic Done,
 						output logic RSLT,
-						//output logic [1:0] state_o,
-						//output logic [1:0] input_o,
 						input logic DISP_RSLT);
 
 									
@@ -29,6 +27,7 @@ enum logic [1:0] { Halted,
 logic [1:0] inputs;
 logic RSLT_Save;
 logic A, B, Y;
+
 
 always_ff @ (posedge Clk)
 begin
@@ -48,6 +47,8 @@ begin
 		inputs++;
 end
 
+xor(Y, A, B);
+
 always_comb
 begin
 	// Assign next state
@@ -55,7 +56,7 @@ begin
 	Next_state = State;
 	A = inputs[1];
 	B = inputs[0];
-	Y = ~|inputs;
+	//Y = ~&inputs;
 	unique case (State)
 		Halted : 
 		begin
@@ -89,41 +90,40 @@ end
 always @ (A or B)
 	begin 
 		// Default next state is staying at current state		
+		Pin1 = 0;
 		Pin2 = 0;
-		Pin3 = 0;
+		Pin4 = 0;
 		Pin5 = 0;
-		Pin6 = 0;
-		Pin8 = 0;
 		Pin9 = 0;
-		Pin11 = 0;
+		Pin10 = 0;
 		Pin12 = 0;
+		Pin13 = 0;
 		
 		RSLT_Save = RSLT;
-		//state_o = State;
-		//input_o = inputs;
+			
 		unique case (State)
 			Halted : ;
 			Set :
 			begin
 				RSLT_Save = 1;
-			end
+			end   
 			Test :
 			begin
-				Pin2 = A;
-				Pin3 = B;
-				if (Pin1 != Y)
+				Pin1 = A;
+				Pin2 = B;
+				if (Pin3 != Y)
 					RSLT_Save = 0;
-				Pin5 = A;
-				Pin6 = B;
-				if (Pin4 != Y)
+				Pin4 = A;
+				Pin5 = B;
+				if (Pin6 != Y)
 					RSLT_Save = 0;
-				Pin8 = A;
+				Pin10 = A;
 				Pin9 = B;
-				if (Pin10 != Y)
+				if (Pin8 != Y)
 					RSLT_Save = 0;
-				Pin11 = A;
+				Pin13 = A;
 				Pin12 = B;
-				if (Pin13 != Y)
+				if (Pin11 != Y)
 					RSLT_Save = 0;
 			end
 			Done_s : ;
