@@ -182,8 +182,8 @@ module  color_mapper (input        Clk, input        RSLT,  input        [9:0] D
 				
 		if( selection < 0 )
 			selection <= 0;
-		else if (selection > 4)
-			selection <= 4;
+		else if (selection > 17)
+			selection <= 17;
 		
 	 end
 	 	 
@@ -335,7 +335,8 @@ module  color_mapper (input        Clk, input        RSLT,  input        [9:0] D
 				ball_on <= 1'b1;
 				character <= 76;
 				end
-				
+			
+			//7404
         if (squareX == 3 && squareY == 7) 
             begin
 				ball_on <= 1'b1;
@@ -356,8 +357,9 @@ module  color_mapper (input        Clk, input        RSLT,  input        [9:0] D
 				ball_on <= 1'b1;
 				character <= 74;
 				end
-				
-        if (squareX == 3 && squareY == 8) 
+
+		 //7410
+		  if (squareX == 3 && squareY == 8) 
             begin
 				ball_on <= 1'b1;
 				character <= 71;
@@ -370,15 +372,16 @@ module  color_mapper (input        Clk, input        RSLT,  input        [9:0] D
         if (squareX == 5 && squareY == 8) 
             begin
 				ball_on <= 1'b1;
-				character <= 71;
+				character <= 77;
 				end
         if (squareX == 6 && squareY == 8) 
             begin
 				ball_on <= 1'b1;
-				character <= 74;
+				character <= 78;
 				end
 				
-        if (squareX == 3 && squareY == 9) 
+			//7420
+		  if (squareX == 3 && squareY == 9) 
             begin
 				ball_on <= 1'b1;
 				character <= 71;
@@ -386,20 +389,390 @@ module  color_mapper (input        Clk, input        RSLT,  input        [9:0] D
         if (squareX == 4 && squareY == 9) 
             begin
 				ball_on <= 1'b1;
-				character <=74;
+				character <= 74;
 				end
         if (squareX == 5 && squareY == 9) 
             begin
 				ball_on <= 1'b1;
-				character <= 70;
+				character <= 76;
 				end
         if (squareX == 6 && squareY == 9) 
             begin
 				ball_on <= 1'b1;
+				character <= 78;
+				end
+				
+			//7427
+		  if (squareX == 3 && squareY == 10) 
+            begin
+				ball_on <= 1'b1;
+				character <= 71;
+				end
+        if (squareX == 4 && squareY == 10) 
+            begin
+				ball_on <= 1'b1;
+				character <= 74;
+				end
+        if (squareX == 5 && squareY == 10) 
+            begin
+				ball_on <= 1'b1;
+				character <= 76;
+				end
+        if (squareX == 6 && squareY == 10) 
+            begin
+				ball_on <= 1'b1;
+				character <= 71;
+				end				
+				
+			//7474
+        if (squareX == 3 && squareY == 11) 
+            begin
+				ball_on <= 1'b1;
+				character <= 71;
+				end
+        if (squareX == 4 && squareY == 11) 
+            begin
+				ball_on <= 1'b1;
+				character <= 74;
+				end
+        if (squareX == 5 && squareY == 11) 
+            begin
+				ball_on <= 1'b1;
+				character <= 71;
+				end
+        if (squareX == 6 && squareY == 11) 
+            begin
+				ball_on <= 1'b1;
+				character <= 74;
+				end
+
+			//7474
+        if (squareX == 3 && squareY == 12) 
+            begin
+				ball_on <= 1'b1;
+				character <= 71;
+				end
+        if (squareX == 4 && squareY == 12) 
+            begin
+				ball_on <= 1'b1;
+				character <= 74;
+				end
+        if (squareX == 5 && squareY == 12) 
+            begin
+				ball_on <= 1'b1;
+				character <= 70;
+				end
+        if (squareX == 6 && squareY == 12) 
+            begin
+				ball_on <= 1'b1;
+				character <= 72;
+				end
+				
+		//7486
+        if (squareX == 3 && squareY == 13) 
+            begin
+				ball_on <= 1'b1;
+				character <= 71;
+				end
+        if (squareX == 4 && squareY == 13) 
+            begin
+				ball_on <= 1'b1;
+				character <=74;
+				end
+        if (squareX == 5 && squareY == 13) 
+            begin
+				ball_on <= 1'b1;
+				character <= 70;
+				end
+        if (squareX == 6 && squareY == 13) 
+            begin
+				ball_on <= 1'b1;
 				character <= 72;
 				end		
-			
-			
+		
+		//74109N
+        if (squareX == 3 && squareY == 14) 
+            begin
+				ball_on <= 1'b1;
+				character <= 71;
+				end
+        if (squareX == 4 && squareY == 14) 
+            begin
+				ball_on <= 1'b1;
+				character <=74;
+				end
+        if (squareX == 5 && squareY == 14) 
+            begin
+				ball_on <= 1'b1;
+				character <= 77;
+				end
+        if (squareX == 6 && squareY == 14) 
+            begin
+				ball_on <= 1'b1;
+				character <= 78;
+				end					
+        if (squareX == 7 && squareY == 14) 
+            begin
+				ball_on <= 1'b1;
+				character <= 69;
+				end
+        if (squareX == 8 && squareY == 14) 
+            begin
+				ball_on <= 1'b1;
+				character <= 48;
+				end	
+
+		//74151N
+        if (squareX == 3 && squareY == 15) 
+            begin
+				ball_on <= 1'b1;
+				character <= 71;
+				end
+        if (squareX == 4 && squareY == 15) 
+            begin
+				ball_on <= 1'b1;
+				character <=74;
+				end
+        if (squareX == 5 && squareY == 15) 
+            begin
+				ball_on <= 1'b1;
+				character <= 77;
+				end
+        if (squareX == 6 && squareY == 15) 
+            begin
+				ball_on <= 1'b1;
+				character <= 73;
+				end					
+        if (squareX == 7 && squareY == 15) 
+            begin
+				ball_on <= 1'b1;
+				character <= 77;
+				end
+        if (squareX == 8 && squareY == 15) 
+            begin
+				ball_on <= 1'b1;
+				character <= 48;
+				end	
+
+		//74153N
+        if (squareX == 3 && squareY == 16) 
+            begin
+				ball_on <= 1'b1;
+				character <= 71;
+				end
+        if (squareX == 4 && squareY == 16) 
+            begin
+				ball_on <= 1'b1;
+				character <=74;
+				end
+        if (squareX == 5 && squareY == 16) 
+            begin
+				ball_on <= 1'b1;
+				character <= 77;
+				end
+        if (squareX == 6 && squareY == 16) 
+            begin
+				ball_on <= 1'b1;
+				character <= 73;
+				end					
+        if (squareX == 7 && squareY == 16) 
+            begin
+				ball_on <= 1'b1;
+				character <= 75;
+				end
+        if (squareX == 8 && squareY == 16) 
+            begin
+				ball_on <= 1'b1;
+				character <= 48;
+				end	
+
+		//74157N
+        if (squareX == 3 && squareY == 17) 
+            begin
+				ball_on <= 1'b1;
+				character <= 71;
+				end
+        if (squareX == 4 && squareY == 17) 
+            begin
+				ball_on <= 1'b1;
+				character <=74;
+				end
+        if (squareX == 5 && squareY == 17) 
+            begin
+				ball_on <= 1'b1;
+				character <= 77;
+				end
+        if (squareX == 6 && squareY == 17) 
+            begin
+				ball_on <= 1'b1;
+				character <= 73;
+				end					
+        if (squareX == 7 && squareY == 17) 
+            begin
+				ball_on <= 1'b1;
+				character <= 71;
+				end
+        if (squareX == 8 && squareY == 17) 
+            begin
+				ball_on <= 1'b1;
+				character <= 48;
+				end				
+				
+		//74161N
+        if (squareX == 3 && squareY == 18) 
+            begin
+				ball_on <= 1'b1;
+				character <= 71;
+				end
+        if (squareX == 4 && squareY == 18) 
+            begin
+				ball_on <= 1'b1;
+				character <=74;
+				end
+        if (squareX == 5 && squareY == 18) 
+            begin
+				ball_on <= 1'b1;
+				character <= 77;
+				end
+        if (squareX == 6 && squareY == 18) 
+            begin
+				ball_on <= 1'b1;
+				character <= 72;
+				end					
+        if (squareX == 7 && squareY == 18) 
+            begin
+				ball_on <= 1'b1;
+				character <= 77;
+				end
+        if (squareX == 8 && squareY == 18) 
+            begin
+				ball_on <= 1'b1;
+				character <= 48;
+				end								
+
+		//74163N
+        if (squareX == 3 && squareY == 19) 
+            begin
+				ball_on <= 1'b1;
+				character <= 71;
+				end
+        if (squareX == 4 && squareY == 19) 
+            begin
+				ball_on <= 1'b1;
+				character <=74;
+				end
+        if (squareX == 5 && squareY == 19) 
+            begin
+				ball_on <= 1'b1;
+				character <= 77;
+				end
+        if (squareX == 6 && squareY == 19) 
+            begin
+				ball_on <= 1'b1;
+				character <= 72;
+				end					
+        if (squareX == 7 && squareY == 19) 
+            begin
+				ball_on <= 1'b1;
+				character <= 75;
+				end
+        if (squareX == 8 && squareY == 19) 
+            begin
+				ball_on <= 1'b1;
+				character <= 48;
+				end		
+				
+		//74194N
+        if (squareX == 3 && squareY == 20) 
+            begin
+				ball_on <= 1'b1;
+				character <= 71;
+				end
+        if (squareX == 4 && squareY == 20) 
+            begin
+				ball_on <= 1'b1;
+				character <=74;
+				end
+        if (squareX == 5 && squareY == 20) 
+            begin
+				ball_on <= 1'b1;
+				character <= 77;
+				end
+        if (squareX == 6 && squareY == 20) 
+            begin
+				ball_on <= 1'b1;
+				character <= 69;
+				end					
+        if (squareX == 7 && squareY == 20) 
+            begin
+				ball_on <= 1'b1;
+				character <= 74;
+				end
+        if (squareX == 8 && squareY == 20) 
+            begin
+				ball_on <= 1'b1;
+				character <= 48;
+				end	
+				
+		//74195N
+        if (squareX == 3 && squareY == 21) 
+            begin
+				ball_on <= 1'b1;
+				character <= 71;
+				end
+        if (squareX == 4 && squareY == 21) 
+            begin
+				ball_on <= 1'b1;
+				character <=74;
+				end
+        if (squareX == 5 && squareY == 21) 
+            begin
+				ball_on <= 1'b1;
+				character <= 77;
+				end
+        if (squareX == 6 && squareY == 21) 
+            begin
+				ball_on <= 1'b1;
+				character <= 69;
+				end					
+        if (squareX == 7 && squareY == 21) 
+            begin
+				ball_on <= 1'b1;
+				character <= 73;
+				end
+        if (squareX == 8 && squareY == 21) 
+            begin
+				ball_on <= 1'b1;
+				character <= 48;
+				end	
+
+			//74279
+        if (squareX == 3 && squareY == 22) 
+            begin
+				ball_on <= 1'b1;
+				character <= 71;
+				end
+        if (squareX == 4 && squareY == 22) 
+            begin
+				ball_on <= 1'b1;
+				character <=74;
+				end
+        if (squareX == 5 && squareY == 22) 
+            begin
+				ball_on <= 1'b1;
+				character <= 76;
+				end
+        if (squareX == 6 && squareY == 22) 
+            begin
+				ball_on <= 1'b1;
+				character <= 71;
+				end					
+        if (squareX == 7 && squareY == 22) 
+            begin
+				ball_on <= 1'b1;
+				character <= 69;
+				end
+
      end 
        
     always_comb
