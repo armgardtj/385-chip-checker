@@ -90,7 +90,7 @@ logic Start_Check;
 
 logic [1:0] done;
 
-logic [9:0] selection;
+int selection;
 logic DISP_RSLT;
 
 logic [5:0]Pin13_agg;
@@ -106,6 +106,8 @@ logic [5:0]Pin4_agg;
 logic [5:0]Pin3_agg;
 logic [5:0]Pin2_agg;
 logic [5:0]Pin1_agg;
+
+
 
 HexDriver		AHex0 (
 						.In0(hex0in),
@@ -131,10 +133,13 @@ HexDriver		CHex3 (
 						.In0(hex5in),
 						.Out0(HEX5) );
 
+
+assign Run_h = (keycode == 8'h28) ? 1 : 0 ;						
 always_comb
 begin
 	Reset_h = ~Reset;
-	Run_h = ~Run;
+	
+	//Run_h = /*~Run*/;
 end
 
 always_comb
@@ -176,7 +181,7 @@ end
 always_comb
 begin
 
-	selection = SW;
+	//selection = SW;
 
 	
 	TPin13 = Pin13_agg[selection];
@@ -195,7 +200,7 @@ begin
 	if(LD_SW)
 	begin
 		
-		hex0in = SW[3:0];
+		hex0in = selection[3:0];
 		//hex1in = SW[7:4];
 		//hex2in = 0;
 		//hex3in = 0;
@@ -219,7 +224,7 @@ begin
 	end
 	else
 	begin
-		hex0in = 0;
+		hex0in = selection[3:0];
 		//hex1in = 0;
 
 	end
@@ -324,25 +329,6 @@ chip_7400 chip_7400_0(.DISP_RSLT(DISP_RSLT), .Clk(Clk), .Reset(Reset_h), .Run(St
 	//Assign uSD CS to '1' to prevent uSD card from interfering with USB Host (if uSD card is plugged in)
 	assign ARDUINO_IO[6] = 1'b1;
 	
-	/*
-	//HEX drivers to convert numbers to HEX output
-	HexDriver hex_driver4 (hex_num_4, HEX4[6:0]);
-	assign HEX4[7] = 1'b1;
-	
-	HexDriver hex_driver3 (hex_num_3, HEX3[6:0]);
-	assign HEX3[7] = 1'b1;
-	
-	HexDriver hex_driver1 (hex_num_1, HEX1[6:0]);
-	assign HEX1[7] = 1'b1;
-	
-	HexDriver hex_driver0 (hex_num_0, HEX0[6:0]);
-	assign HEX0[7] = 1'b1;
-			
-	//fill in the hundreds digit as well as the negative sign
-	assign HEX5 = {1'b1, ~signs[1], 3'b111, ~hundreds[1], ~hundreds[1], 1'b1};
-	assign HEX2 = {1'b1, ~signs[0], 3'b111, ~hundreds[0], ~hundreds[0], 1'b1};
-	*/
-
 
 	//Our A/D converter is only 12 bit
 	assign VGA_R = Red[7:4];
@@ -403,7 +389,7 @@ vga_controller vga0(.Clk(Clk),       // 50 MHz clock
 					  .DrawY(drawysig) );
 					  
 color_mapper color_mapper0(.Clk(Clk), .DrawX(drawxsig), .DrawY(drawysig),
-                       .Red(Red), .Green(Green), .Blue(Blue), .keycode(keycode));
+                       .Red(Red), .Green(Green), .Blue(Blue), .keycode(keycode), .select(selection), .RSLT(RSLT));
 
 			
 endmodule

@@ -13,8 +13,8 @@
 //-------------------------------------------------------------------------
 
 
-module  color_mapper (input        Clk,  input        [9:0] DrawX, DrawY, Ball_size, input [7:0] keycode,
-                       output logic [7:0]  Red, Green, Blue );
+module  color_mapper (input        Clk, input        RSLT,  input        [9:0] DrawX, DrawY, Ball_size, input [7:0] keycode,
+                       output logic [7:0]  Red, Green, Blue, output int select );
     
     logic ball_on;
 	 
@@ -27,7 +27,7 @@ module  color_mapper (input        Clk,  input        [9:0] DrawX, DrawY, Ball_s
 	
 	logic [39:0]filled_lines;
 	
-	assign filled_lines = '{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0};
+	assign filled_lines = 40'b0000000000000000000000000000000000001000;
 	
 	assign letters = '{'{8'h00, 8'h00, 8'h00, 8'h00, 8'h00, 8'h00, 8'h00, 8'h00, 8'h00, 8'h00, 8'h00, 8'h00, 8'h00},// space :32
 	'{8'h00, 8'h00, 8'h18, 8'h18, 8'h00, 8'h00, 8'h18, 8'h18, 8'h18, 8'h18, 8'h18, 8'h18, 8'h18},// ! :33
@@ -142,6 +142,7 @@ module  color_mapper (input        Clk,  input        [9:0] DrawX, DrawY, Ball_s
 	  
     int DistX, DistY, Size, testSize_X, SizeX, SizeY, line, squareX, squareY, character;
 	 int selection = 0;
+	 assign select = selection + 1;
 	 int primed;
 	 assign DistX = DrawX % SizeX;
     assign DistY = DrawY % SizeY;
@@ -188,148 +189,216 @@ module  color_mapper (input        Clk,  input        [9:0] DrawX, DrawY, Ball_s
 	 	 
 	 
     always_comb
-    begin:Ball_on_proc
-	 
-		if(DistX >= 0 && DistY >= 0 &&  DistX < SizeX && DistY < SizeY )
-		begin
+    begin
 
-        if (squareX == 3 && squareY == 3) 
-            begin
-				ball_on = 1'b1;
-				character = 59;
-				end
-        else if (squareX == 4 && squareY == 3) 
-            begin
-				ball_on = 1'b1;
-				character = 54;
-				end
-        else if (squareX == 5 && squareY == 3) 
-            begin
-				ball_on = 1'b1;
-				character = 53;
-				end
-        else if (squareX == 6 && squareY == 3) 
-            begin
-				ball_on = 1'b1;
-				character = 46;
-				end
-				
-        else if (squareX == 3 && squareY == 5) 
-            begin
-				ball_on = 1'b1;
-				character = 71;
-				end
-        else if (squareX == 4 && squareY == 5) 
-            begin
-				ball_on = 1'b1;
-				character = 74;
-				end
-        else if (squareX == 5 && squareY == 5) 
-            begin
-				ball_on = 1'b1;
-				character = 78;
-				end
-        else if (squareX == 6 && squareY == 5) 
-            begin
-				ball_on = 1'b1;
-				character = 78;
-				end
-				
-        else if (squareX == 3 && squareY == 6) 
-            begin
-				ball_on = 1'b1;
-				character = 71;
-				end
-        else if (squareX == 4 && squareY == 6) 
-            begin
-				ball_on = 1'b1;
-				character = 74;
-				end
-        else if (squareX == 5 && squareY == 6) 
-            begin
-				ball_on = 1'b1;
-				character = 78;
-				end
-        else if (squareX == 6 && squareY == 6) 
-            begin
-				ball_on = 1'b1;
-				character = 76;
-				end
-				
-        else if (squareX == 3 && squareY == 7) 
-            begin
-				ball_on = 1'b1;
-				character = 71;
-				end
-        else if (squareX == 4 && squareY == 7) 
-            begin
-				ball_on = 1'b1;
-				character = 74;
-				end
-        else if (squareX == 5 && squareY == 7) 
-            begin
-				ball_on = 1'b1;
-				character = 78;
-				end
-        else if (squareX == 6 && squareY == 7) 
-            begin
-				ball_on = 1'b1;
-				character = 74;
-				end
-				
-        else if (squareX == 3 && squareY == 8) 
-            begin
-				ball_on = 1'b1;
-				character = 71;
-				end
-        else if (squareX == 4 && squareY == 8) 
-            begin
-				ball_on = 1'b1;
-				character = 74;
-				end
-        else if (squareX == 5 && squareY == 8) 
-            begin
-				ball_on = 1'b1;
-				character = 71;
-				end
-        else if (squareX == 6 && squareY == 8) 
-            begin
-				ball_on = 1'b1;
-				character = 74;
-				end
-				
-        else if (squareX == 3 && squareY == 9) 
-            begin
-				ball_on = 1'b1;
-				character = 71;
-				end
-        else if (squareX == 4 && squareY == 9) 
-            begin
-				ball_on = 1'b1;
-				character = 74;
-				end
-        else if (squareX == 5 && squareY == 9) 
-            begin
-				ball_on = 1'b1;
-				character = 70;
-				end
-        else if (squareX == 6 && squareY == 9) 
-            begin
-				ball_on = 1'b1;
-				character = 72;
-				end				
-			else 
-			begin
-            ball_on = 1'b0;
-				character = 94;
-			end
-		end 
-		  else 
-			begin
-            ball_on = 1'b0;
-				character = 94;
-			end
+		ball_on = 1'b0;
+		character = 94;
+	 
+		//if(DistX >= 0 && DistY >= 0 &&  DistX < SizeX && DistY < SizeY )
+		//begin
 		
+			//if(filled_lines[squareY] == 1)
+			//begin
+			  if (squareX == 3 && squareY == 3) 
+					begin
+					ball_on <= 1'b1;
+					character <= 59;
+					end
+			  if (squareX == 4 && squareY == 3) 
+					begin
+					ball_on <= 1'b1;
+					character <= 54;
+					end
+			  if (squareX == 5 && squareY == 3) 
+					begin
+					ball_on <= 1'b1;
+					character <= 53;
+					end
+			  if (squareX == 6 && squareY == 3) 
+					begin
+					ball_on <= 1'b1;
+					character <= 46;
+					end
+					
+					/*
+			  if (squareX == 10 && squareY == 3) 
+					begin
+					ball_on <= 1'b1;
+					character <= 43;
+					end
+			  if (squareX == 11 && squareY == 3) 
+					begin
+					ball_on <= 1'b1;
+					character <= 42;
+					end
+			  if (squareX == 12 && squareY == 3) 
+					begin
+					ball_on <= 1'b1;
+					character <= 61;
+					end
+			  if (squareX == 13 && squareY == 3) 
+					begin
+					ball_on <= 1'b1;
+					character <= 44;
+					end
+			  if (squareX == 14 && squareY == 3) 
+					begin
+					ball_on <= 1'b1;
+					character <= 42;
+					end
+					*/
+				if(RSLT)
+				begin
+					if (squareX == 17 && squareY == 3) 
+						begin
+						ball_on <= 1'b1;
+						character <= 55;
+						end
+				  if (squareX == 18 && squareY == 3) 
+						begin
+						ball_on <= 1'b1;
+						character <= 47;
+						end
+				  if (squareX == 19 && squareY == 3) 
+						begin
+						ball_on <= 1'b1;
+						character <= 47;
+						end
+				  if (squareX == 20 && squareY == 3) 
+						begin
+						ball_on <= 1'b1;
+						character <= 58;
+						end
+				end
+				else
+				begin
+				
+					if (squareX == 17 && squareY == 3) 
+						begin
+						ball_on <= 1'b1;
+						character <= 60;
+						end
+					if (squareX == 18 && squareY == 3) 
+						begin
+						ball_on <= 1'b1;
+						character <= 61;
+						end
+					if (squareX == 19 && squareY == 3) 
+						begin
+						ball_on <= 1'b1;
+						character <= 58;
+						end			
+					
+				end
+		
+			
+			//end
+			
+        if (squareX == 3 && squareY == 5) 
+            begin
+				ball_on <= 1'b1;
+				character <= 71;
+				end
+        if (squareX == 4 && squareY == 5) 
+            begin
+				ball_on <= 1'b1;
+				character <= 74;
+				end
+        if (squareX == 5 && squareY == 5) 
+            begin
+				ball_on <= 1'b1;
+				character <= 78;
+				end
+        if (squareX == 6 && squareY == 5) 
+            begin
+				ball_on <= 1'b1;
+				character <= 78;
+				end
+				
+        if (squareX == 3 && squareY == 6) 
+            begin
+				ball_on <= 1'b1;
+				character <= 71;
+				end
+        if (squareX == 4 && squareY == 6) 
+            begin
+				ball_on <= 1'b1;
+				character <= 74;
+				end
+        if (squareX == 5 && squareY == 6) 
+            begin
+				ball_on <= 1'b1;
+				character <= 78;
+				end
+        if (squareX == 6 && squareY == 6) 
+            begin
+				ball_on <= 1'b1;
+				character <= 76;
+				end
+				
+        if (squareX == 3 && squareY == 7) 
+            begin
+				ball_on <= 1'b1;
+				character <= 71;
+				end
+        if (squareX == 4 && squareY == 7) 
+            begin
+				ball_on <= 1'b1;
+				character <= 74;
+				end
+        if (squareX == 5 && squareY == 7) 
+            begin
+				ball_on <= 1'b1;
+				character <= 78;
+				end
+        if (squareX == 6 && squareY == 7) 
+            begin
+				ball_on <= 1'b1;
+				character <= 74;
+				end
+				
+        if (squareX == 3 && squareY == 8) 
+            begin
+				ball_on <= 1'b1;
+				character <= 71;
+				end
+        if (squareX == 4 && squareY == 8) 
+            begin
+				ball_on <= 1'b1;
+				character <= 74;
+				end
+        if (squareX == 5 && squareY == 8) 
+            begin
+				ball_on <= 1'b1;
+				character <= 71;
+				end
+        if (squareX == 6 && squareY == 8) 
+            begin
+				ball_on <= 1'b1;
+				character <= 74;
+				end
+				
+        if (squareX == 3 && squareY == 9) 
+            begin
+				ball_on <= 1'b1;
+				character <= 71;
+				end
+        if (squareX == 4 && squareY == 9) 
+            begin
+				ball_on <= 1'b1;
+				character <=74;
+				end
+        if (squareX == 5 && squareY == 9) 
+            begin
+				ball_on <= 1'b1;
+				character <= 70;
+				end
+        if (squareX == 6 && squareY == 9) 
+            begin
+				ball_on <= 1'b1;
+				character <= 72;
+				end		
+			
 			
      end 
        
