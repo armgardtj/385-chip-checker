@@ -156,7 +156,8 @@ HexDriver		CHex3 (
 						.Out0(HEX5) );
 
 
-assign Run_h = (keycode == 8'h28) ? 1 : 0 ;						
+assign Run_h = (keycode == 8'h28) ? 1 : 0 ;		
+				
 always_comb
 begin
 	Reset_h = ~Reset;
@@ -560,7 +561,6 @@ begin
 	
 	if(LD_SW)
 	begin
-
 		hex0in = 0;
 		hex1in = 0;
 		hex2in = SW[3:0];
@@ -606,7 +606,7 @@ always_comb
 begin
 	hex1in = input_o[3:0];
 	hex2in = expected[3:0];
-	hex3in = {Pin15, Pin14, Pin13, Pin12};
+	hex3in = {Pin1, Pin4, Pin10, Pin13};
 	hex4in = RSLT;	
 	hex5in = slow_clk;
 	
@@ -734,7 +734,7 @@ color_mapper color_mapper0(.Clk(Clk), .DrawX(drawxsig), .DrawY(drawysig),
 			
 
 chip_7400 chip_7400_0(.DISP_RSLT(DISP_RSLT), .Clk(slow_clk), .Reset(Reset_h), .Run(Start_Check), .Done(done[1]), .RSLT(RSLT_O[1]), .Pin13(Pin13_agg[1]), .Pin12(Pin12_agg[1]), .Pin11(Pin11), .Pin10(Pin10_agg[1]), .Pin9(Pin9_agg[1]), .Pin8(Pin8), .Pin6(Pin6), .Pin5(Pin5_agg[1]), .Pin4(Pin4_agg[1]), .Pin3(Pin3), .Pin2(Pin2_agg[1]), .Pin1(Pin1_agg[1]));//, .state_o(state_o), .input_o(input_o));		
-chip_7402 chip_7402_0(.DISP_RSLT(DISP_RSLT), .Clk(slow_clk), .Reset(Reset_h), .Run(Start_Check), .Done(done[2]), .RSLT(RSLT_O[2]), .Pin13(Pin13), .Pin12(Pin12_agg[2]), .Pin11(Pin11_agg[2]), .Pin10(Pin10), .Pin9(Pin9_agg[2]), .Pin8(Pin8_agg[2]), .Pin6(Pin6_agg[2]), .Pin5(Pin5_agg[2]), .Pin4(Pin4), .Pin3(Pin3_agg[2]), .Pin2(Pin2_agg[2]), .Pin1(Pin1));//, .state_o(state_o), .input_o(input_o));		
+chip_7402 chip_7402_0(.DISP_RSLT(DISP_RSLT), .Clk(slow_clk), .Reset(Reset_h), .Run(Start_Check), .Done(done[2]), .RSLT(RSLT_O[2]), .Pin13(Pin13), .Pin12(Pin12_agg[2]), .Pin11(Pin11_agg[2]), .Pin10(Pin10), .Pin9(Pin9_agg[2]), .Pin8(Pin8_agg[2]), .Pin6(Pin6_agg[2]), .Pin5(Pin5_agg[2]), .Pin4(Pin4), .Pin3(Pin3_agg[2]), .Pin2(Pin2_agg[2]), .Pin1(Pin1), .E(expected), .input_o(input_o));		
 chip_7404 chip_7404_0(.DISP_RSLT(DISP_RSLT), .Clk(slow_clk), .Reset(Reset_h), .Run(Start_Check), .Done(done[3]), .RSLT(RSLT_O[3]), .Pin13(Pin13_agg[3]), .Pin12(Pin12), .Pin11(Pin11_agg[3]), .Pin10(Pin10), .Pin9(Pin9_agg[3]), .Pin8(Pin8), .Pin6(Pin6), .Pin5(Pin5_agg[3]), .Pin4(Pin4), .Pin3(Pin3_agg[3]), .Pin2(Pin2), .Pin1(Pin1_agg[3]));//, .state_o(state_o), .input_o(input_o));		
 chip_7410 chip_7410_0(.DISP_RSLT(DISP_RSLT), .Clk(slow_clk), .Reset(Reset_h), .Run(Start_Check), .Done(done[4]), .RSLT(RSLT_O[4]), .Pin13(Pin13_agg[4]), .Pin12(Pin12), .Pin11(Pin11_agg[4]), .Pin10(Pin10_agg[4]), .Pin9(Pin9_agg[4]), .Pin8(Pin8), .Pin6(Pin6), .Pin5(Pin5_agg[4]), .Pin4(Pin4_agg[4]), .Pin3(Pin3_agg[4]), .Pin2(Pin2_agg[4]), .Pin1(Pin1_agg[4]));//, .state_o(state_o), .input_o(input_o));		
 chip_7420 chip_7420_0(.DISP_RSLT(DISP_RSLT), .Clk(slow_clk), .Reset(Reset_h), .Run(Start_Check), .Done(done[5]), .RSLT(RSLT_O[5]), .Pin13(Pin13_agg[5]), .Pin12(Pin12_agg[5]), .Pin10(Pin10_agg[5]), .Pin9(Pin9_agg[5]), .Pin8(Pin8), .Pin6(Pin6), .Pin5(Pin5_agg[5]), .Pin4(Pin4_agg[5]), .Pin2(Pin2_agg[5]), .Pin1(Pin1_agg[5]));//, .state_o(state_o), .input_o(input_o));		

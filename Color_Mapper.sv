@@ -446,7 +446,7 @@ module  color_mapper (input        Clk, input        RSLT,  input        [9:0] D
 				character <= 74;
 				end
 
-			//7474
+			//7485
         if (squareX == 3 && squareY == 12) 
             begin
 				ball_on <= 1'b1;
@@ -465,7 +465,7 @@ module  color_mapper (input        Clk, input        RSLT,  input        [9:0] D
         if (squareX == 6 && squareY == 12) 
             begin
 				ball_on <= 1'b1;
-				character <= 72;
+				character <= 73;
 				end
 				
 		//7486

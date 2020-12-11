@@ -15,8 +15,8 @@ module chip_7402( input logic Clk,
 						input logic Pin1,
 						output logic Done,
 						output logic RSLT,
-						//output logic [1:0] state_o,
-						//output logic [1:0] input_o,
+						output logic [3:0] E,
+						output logic [3:0] input_o,
 						input logic DISP_RSLT);
 
 									
@@ -86,7 +86,7 @@ begin
 	endcase
 end
 
-always @ (A or B)
+always @ (inputs)
 	begin 
 		// Default next state is staying at current state		
 		Pin2 = 0;
@@ -99,8 +99,8 @@ always @ (A or B)
 		Pin12 = 0;
 		
 		RSLT_Save = RSLT;
-		//state_o = State;
-		//input_o = inputs;
+		E = Y;
+		input_o = inputs;
 		unique case (State)
 			Halted : ;
 			Set :
