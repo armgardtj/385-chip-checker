@@ -16,10 +16,32 @@ module chip_checker(	input logic [9:0] SW,
 	inout logic Pin4,
 	inout logic Pin3,
 	inout logic Pin2,
-	inout logic Pin1
+	inout logic Pin1,
+	
+		output             DRAM_CLK,
+      output             DRAM_CKE,
+      output   [12: 0]   DRAM_ADDR,
+      output   [ 1: 0]   DRAM_BA,
+      inout    [15: 0]   DRAM_DQ,
+      output             DRAM_LDQM,
+      output             DRAM_UDQM,
+      output             DRAM_CS_N,
+      output             DRAM_WE_N,
+      output             DRAM_CAS_N,
+      output             DRAM_RAS_N,
+      output             VGA_HS,
+      output             VGA_VS,
+      output   [ 3: 0]   VGA_R,
+      output   [ 3: 0]   VGA_G,
+      output   [ 3: 0]   VGA_B,
+
+      inout    [15: 0]   ARDUINO_IO,
+      inout              ARDUINO_RESET_N 
 	);
 	
+
 logic [16:0] io;
+
 
 //bit [3:0] [15:0] io  = {
 //{1'b1,1'b1,1'b0,1'b1,1'b0,1'b1,1'b0,1'b0,1'b0,1'b1,1'b0,1'b1,1'b0,1'b1,1'b0,1'b0},
@@ -82,9 +104,12 @@ logic [3:0] expected;
 
 logic Start_Check;
 
+
 logic [18:0] done;
 logic [18:0] RSLT_O;
-logic [18:0] selection;
+int selection;
+
+
 logic DISP_RSLT;
 
 logic [18:0]Pin16_agg;
@@ -103,6 +128,8 @@ logic [18:0]Pin4_agg;
 logic [18:0]Pin3_agg;
 logic [18:0]Pin2_agg;
 logic [18:0]Pin1_agg;
+
+
 
 HexDriver		AHex0 (
 						.In0(hex0in),
@@ -128,10 +155,13 @@ HexDriver		CHex3 (
 						.In0(hex5in),
 						.Out0(HEX5) );
 
+
+assign Run_h = (keycode == 8'h28) ? 1 : 0 ;						
 always_comb
 begin
 	Reset_h = ~Reset;
-	Run_h = ~Run;
+	
+	//Run_h = /*~Run*/;
 end
 
 always_comb
@@ -429,7 +459,7 @@ end
 always_comb
 begin
 
-	selection = SW;
+	//selection = SW;
 
 	TPin16 = Pin16_agg[selection];
 	TPin15 = Pin15_agg[selection];
@@ -450,6 +480,7 @@ begin
 	
 	if(LD_SW)
 	begin
+
 		hex0in = SW[3:0];
 //		hex1in = 0;
 //		hex2in = SW[3:0];
@@ -461,6 +492,7 @@ begin
 //		hex1in = 0;
 //		hex2in = SW[3:0];
 //		hex3in = SW[7:4];
+
 	end
 	else if(DISP_RSLT)
 	begin
@@ -481,10 +513,12 @@ begin
 	end
 	else
 	begin
+
 		hex0in = 0;
 //		hex1in = 0;
 //		hex2in = 0;
 //		hex3in = 0;
+
 	end
 end
 
@@ -515,6 +549,110 @@ end
 chip_checker_state chip_checker_state0(.Clk(slow_clk), .Reset(Reset_h), .Run(Run_h), .LD_SW(LD_SW), .LD_RSLT(LD_RSLT), .Check_Done(Check_Done), .Start_Check(Start_Check), .DISP_RSLT(DISP_RSLT));
 
 
+
+//=======================================================
+//  REG/WIRE declarations
+//=======================================================
+	logic SPI0_CS_N, SPI0_SCLK, SPI0_MISO, SPI0_MOSI, USB_GPX, USB_IRQ, USB_RST;
+	logic [3:0] hex_num_5, hex_num_4, hex_num_3, hex_num_1, hex_num_0; //4 bit input hex digits
+	logic [1:0] signs;
+	logic [1:0] hundreds;
+	logic [9:0] drawxsig, drawysig;
+	logic [7:0] Red, Blue, Green;
+	logic [7:0] keycode;
+	logic [7:0] old_key = 0;
+	logic [7:0] act_key;
+	logic same;
+
+	//logic [12:0][7:0]  letters;
+	//assign letters = {8'h00, 8'h00, 8'h00, 8'h00, 8'h00, 8'h00, 8'h00, 8'h00, 8'h00, 8'h00, 8'h00, 8'h00, 8'h00};
+
+
+//=======================================================
+//  Structural coding
+//=======================================================
+	assign ARDUINO_IO[10] = SPI0_CS_N;
+	assign ARDUINO_IO[13] = SPI0_SCLK;
+	assign ARDUINO_IO[11] = SPI0_MOSI;
+	assign ARDUINO_IO[12] = 1'bZ;
+	assign SPI0_MISO = ARDUINO_IO[12];
+	
+	assign ARDUINO_IO[9] = 1'bZ; 
+	assign USB_IRQ = ARDUINO_IO[9];
+		
+	//Assignments specific to Circuits At Home UHS_20
+	assign ARDUINO_RESET_N = USB_RST;
+	assign ARDUINO_IO[7] = USB_RST;//USB reset 
+	assign ARDUINO_IO[8] = 1'bZ; //this is GPX (set to input)
+	assign USB_GPX = 1'b0;//GPX is not needed for standard USB host - set to 0 to prevent interrupt
+	
+	//Assign uSD CS to '1' to prevent uSD card from interfering with USB Host (if uSD card is plugged in)
+	assign ARDUINO_IO[6] = 1'b1;
+	
+
+	//Our A/D converter is only 12 bit
+	assign VGA_R = Red[7:4];
+	assign VGA_B = Blue[7:4];
+	assign VGA_G = Green[7:4];
+	
+	
+	Lab8_soc u0 (
+		.clk_clk                           (Clk),            //clk.clk
+		.reset_reset_n                     (1'b1),           //reset.reset_n
+		.altpll_0_locked_conduit_export    (),               //altpll_0_locked_conduit.export
+		.altpll_0_phasedone_conduit_export (),               //altpll_0_phasedone_conduit.export
+		.altpll_0_areset_conduit_export    (),               //altpll_0_areset_conduit.export
+		.key_external_connection_export    (KEY),            //key_external_connection.export
+
+		//SDRAM
+		.sdram_clk_clk(DRAM_CLK),                            //clk_sdram.clk
+		.sdram_wire_addr(DRAM_ADDR),                         //sdram_wire.addr
+		.sdram_wire_ba(DRAM_BA),                             //.ba
+		.sdram_wire_cas_n(DRAM_CAS_N),                       //.cas_n
+		.sdram_wire_cke(DRAM_CKE),                           //.cke
+		.sdram_wire_cs_n(DRAM_CS_N),                         //.cs_n
+		.sdram_wire_dq(DRAM_DQ),                             //.dq
+		.sdram_wire_dqm({DRAM_UDQM,DRAM_LDQM}),              //.dqm
+		.sdram_wire_ras_n(DRAM_RAS_N),                       //.ras_n
+		.sdram_wire_we_n(DRAM_WE_N),                         //.we_n
+
+		//USB SPI	
+		.spi0_SS_n(SPI0_CS_N),
+		.spi0_MOSI(SPI0_MOSI),
+		.spi0_MISO(SPI0_MISO),
+		.spi0_SCLK(SPI0_SCLK),
+		
+		//USB GPIO
+		.usb_rst_export(USB_RST),
+		.usb_irq_export(USB_IRQ),
+		.usb_gpx_export(USB_GPX),
+		
+		//LEDs and HEX
+		.hex_digits_pio_export({hex_num_4, hex_num_3, hex_num_1, hex_num_0}),
+		.leds_export({hundreds, signs, LEDR}),
+		.keycode_export(keycode)
+		
+	 );
+
+
+//instantiate a vga_controller, ball, and color_mapper here with the ports.
+
+vga_controller vga0(.Clk(Clk),       // 50 MHz clock
+					  .Reset(Reset_h),     // reset signal
+						.hs(VGA_HS),        // Horizontal sync pulse.  Active low
+					  .vs(VGA_VS),        // Vertical sync pulse.  Active low
+					  .pixel_clk(VGA_Clk), // 25 MHz pixel clock output
+					  .blank(blank),     // Blanking interval indicator.  Active low.
+					  .sync(sync),      // Composite Sync signal.  Active low.  We don't use it in this lab,
+									 //   but the video DAC on the DE2 board requires an input for it.
+						.DrawX(drawxsig),     // horizontal coordinate
+					  .DrawY(drawysig) );
+					  
+color_mapper color_mapper0(.Clk(Clk), .DrawX(drawxsig), .DrawY(drawysig),
+                       .Red(Red), .Green(Green), .Blue(Blue), .keycode(keycode), .select(selection), .RSLT(RSLT));
+
+			
+
 chip_7400 chip_7400_0(.DISP_RSLT(DISP_RSLT), .Clk(slow_clk), .Reset(Reset_h), .Run(Start_Check), .Done(done[1]), .RSLT(RSLT_O[1]), .Pin13(Pin13_agg[1]), .Pin12(Pin12_agg[1]), .Pin11(Pin11), .Pin10(Pin10_agg[1]), .Pin9(Pin9_agg[1]), .Pin8(Pin8), .Pin6(Pin6), .Pin5(Pin5_agg[1]), .Pin4(Pin4_agg[1]), .Pin3(Pin3), .Pin2(Pin2_agg[1]), .Pin1(Pin1_agg[1]));//, .state_o(state_o), .input_o(input_o));		
 chip_7402 chip_7402_0(.DISP_RSLT(DISP_RSLT), .Clk(slow_clk), .Reset(Reset_h), .Run(Start_Check), .Done(done[2]), .RSLT(RSLT_O[2]), .Pin13(Pin13), .Pin12(Pin12_agg[2]), .Pin11(Pin11_agg[2]), .Pin10(Pin10), .Pin9(Pin9_agg[2]), .Pin8(Pin8_agg[2]), .Pin6(Pin6_agg[2]), .Pin5(Pin5_agg[2]), .Pin4(Pin4), .Pin3(Pin3_agg[2]), .Pin2(Pin2_agg[2]), .Pin1(Pin1));//, .state_o(state_o), .input_o(input_o));		
 chip_7404 chip_7404_0(.DISP_RSLT(DISP_RSLT), .Clk(slow_clk), .Reset(Reset_h), .Run(Start_Check), .Done(done[3]), .RSLT(RSLT_O[3]), .Pin13(Pin13_agg[3]), .Pin12(Pin12), .Pin11(Pin11_agg[3]), .Pin10(Pin10), .Pin9(Pin9_agg[3]), .Pin8(Pin8), .Pin6(Pin6), .Pin5(Pin5_agg[3]), .Pin4(Pin4), .Pin3(Pin3_agg[3]), .Pin2(Pin2), .Pin1(Pin1_agg[3]));//, .state_o(state_o), .input_o(input_o));		
@@ -536,3 +674,4 @@ chip_74157N chip_74157N_0(.DISP_RSLT(DISP_RSLT), .Clk(slow_clk), .Reset(Reset_h)
 
 	
 endmodule
+
